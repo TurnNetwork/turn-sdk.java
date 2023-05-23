@@ -1,8 +1,8 @@
 #define TESTNET
 // Author: zjsunzone
-#include <platon/platon.hpp>
+#include <bubble/bubble.hpp>
 #include <string>
-using namespace platon;
+using namespace bubble;
 
 // data structure of a single tweet.
 struct Tweet{
@@ -21,26 +21,26 @@ struct Tweet{
 };
 
 
-CONTRACT TweetAccount: public platon::Contract
+CONTRACT TweetAccount: public bubble::Contract
 {
 	private:
 		// "array" of all tweets of this account: maps the tweet id to the actual tweet.
-		platon::StorageType<"smapping"_n, std::map<std::uint64_t, Tweet>> _tweets;
+		bubble::StorageType<"smapping"_n, std::map<std::uint64_t, Tweet>> _tweets;
 		// total number of tweets in the above _tweets mapping.
-		platon::StorageType<"suint"_n, uint64_t> _numberOfTweets;
+		bubble::StorageType<"suint"_n, uint64_t> _numberOfTweets;
 		// "owner" of this account: only admin is allowed to tweet.
-		platon::StorageType<"saddress"_n, Address> _adminAddress;
+		bubble::StorageType<"saddress"_n, Address> _adminAddress;
 	
 	public:
 		ACTION void init()
 		{
 			_numberOfTweets.self() = 0;
-			_adminAddress.self() = platon::platon_caller();
+			_adminAddress.self() = bubble::bubble_caller();
 		}
 		
 		// returns true if caller of function("sender") is admin.
 		CONST bool isAdmin(){
-			 platon::platon_caller() == _adminAddress.selreturnf();
+			 bubble::bubble_caller() == _adminAddress.selreturnf();
 		}
 	
 		// create new tweet
@@ -53,7 +53,7 @@ CONTRACT TweetAccount: public platon::Contract
 				// tweet contains more than 160 bytes.
 				result = -2;
 			} else {
-				_tweets.self()[_numberOfTweets].timestamp = platon_timestamp();
+				_tweets.self()[_numberOfTweets].timestamp = bubble_timestamp();
 				_tweets.self()[_numberOfTweets].tweetString = tweetString;
 				_numberOfTweets.self() = _numberOfTweets.self() + 1;	
 				result = 0; // success.		
@@ -86,26 +86,26 @@ CONTRACT TweetAccount: public platon::Contract
 		
 		ACTION void adminRetrieveDonations(const Address& receiver) {
 			if(isAdmin()){
-				Address caddr = platon_address();
-				Energon e = platon_balance(caddr);
-				platon_transfer(receiver, e);
+				Address caddr = bubble_address();
+				Energon e = bubble_balance(caddr);
+				bubble_transfer(receiver, e);
 			}		
 		}
 		
 		CONST Address caddr(){
-			return platon_address();		
+			return bubble_address();
 		}
 	
 		CONST std::string caddrBalance(Address receiver){
-			//Address caddr = platon_address();
-			Energon e = platon_balance(receiver);
+			//Address caddr = bubble_address();
+			Energon e = bubble_balance(receiver);
 			return std::to_string(e.Get());		
 		}
 			
 		ACTION void adminDeleteAccount(){
 			if(isAdmin()){
 				// this is a predefined function, it deletes theh contract and returns all funds to the owner.	
-				platon_destroy(_adminAddress.self());	
+				bubble_destroy(_adminAddress.self());
 			}		
 		}
 

@@ -293,8 +293,8 @@ task jacocoRootTestReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it,
                     exclude: [
-                            'com/platon/abi/solidity/datatypes/generated/**',
-                            'com/platon/tuples/generated/**'
+                            'com/bubble/abi/solidity/datatypes/generated/**',
+                            'com/bubble/tuples/generated/**'
                     ])
         })
     }

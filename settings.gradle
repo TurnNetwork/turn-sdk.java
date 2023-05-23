@@ -1,4 +1,4 @@
-rootProject.name = 'platon-sdk-java'
+rootProject.name = 'bubble-sdk-java'
 
 include 'integration-tests'
 include 'console'

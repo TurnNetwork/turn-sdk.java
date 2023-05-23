@@ -1,7 +1,7 @@
 #define TESTNET
-#include <platon/platon.hpp>
+#include <bubble/bubble.hpp>
 #include <string>
-using namespace platon;
+using namespace bubble;
 using int8_type_array = std::array<int8_t, 2>;
 using int16_type_array = std::array<int16_t, 2>;
 using uint8_type_array = std::array<uint8_t, 2>;
@@ -17,7 +17,7 @@ using uint16_type_list = std::list<uint16_t>;
 
 
 
-CONTRACT EventTopic : public platon::Contract{
+CONTRACT EventTopic : public bubble::Contract{
    public:
       PLATON_EVENT3(stringAndAddrAndBoolean,std::string, Address, bool)
       PLATON_EVENT2(intNumber, int8_t, int16_t)
@@ -68,7 +68,7 @@ CONTRACT EventTopic : public platon::Contract{
       }
 
    private:
-      platon::StorageType<"sstorage"_n, std::string> stringstorage;
+      bubble::StorageType<"sstorage"_n, std::string> stringstorage;
 };
 
 PLATON_DISPATCH(EventTopic, (init)(setStringAndAddressAndBoolean)(setIntNumber)(setUintNumber)(setIntArray)(setUintArray)(setIntVector)(setUintVector)(setIntList)(setUintList))

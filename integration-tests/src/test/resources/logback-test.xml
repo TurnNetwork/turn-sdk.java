@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.platon.protocol" level="DEBUG"/>
+    <logger name="com.bubble.protocol" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

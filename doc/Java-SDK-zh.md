@@ -17,8 +17,8 @@ sidebar_label: Java SDK
 > 项目配置:
 ```xml
 <repository>
-	<id>platon-public</id>
-	<url>https://sdk.platon.network/nexus/content/groups/public/</url>
+	<id>bubble-public</id>
+	<url>https://sdk.bubble.network/nexus/content/groups/public/</url>
 </repository>
 ```
 注：最新版本是1.3.0.2
@@ -26,9 +26,9 @@ sidebar_label: Java SDK
 > maven引用方式:
 ```xml
 <dependency>
-    <groupId>com.platon.sdk</groupId>
+    <groupId>com.bubble.sdk</groupId>
     <artifactId>core</artifactId>
-    <version>1.3.0.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 注：最新版本是1.3.0.2
@@ -39,40 +39,22 @@ sidebar_label: Java SDK
 > 项目配置:
 ```
 repositories {
-	maven { url "https://sdk.platon.network/nexus/content/groups/public/" }
+	maven { url "https://sdk.bubble.network/nexus/content/groups/public/" }
 }
 ```
 
 > gradle引用方式:
 ```
-compile "com.platon.sdk:core:1.3.0.2"
+compile "com.bubble.sdk:core:1.0.0"
 ```
 
 ## 基础api使用
-
-### Bech32地址
-
-* **0x地址转bech32地址**
-```java
-NetworkParameters.init(20000L, "atx");
-String hex = "0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818";
-String bech32Address = Bech32.addressEncode(NetworkParameters.getHrp(), hex);
-assertThat(bech32Address, is("atx1f7wp58h65lvphgw2hurl9sa943w0f7qcdcev89"));
-```
-
-* **bech32地址转0x地址**
-```java
-NetworkParameters.init(20000L, "atx");
-String bech32Address = "atx1f7wp58h65lvphgw2hurl9sa943w0f7qcdcev89";
-String hex =  Bech32.addressDecodeHex(bech32Address);
-assertThat(hex, is("0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818"));
-```
 
 ### 网络参数
 
 * **初始化网络**
 
-> SDK已经内置PlatON网络。用户还可以初始化其它自定义网络，最后一个初始化的是当前网络.
+> SDK已经内置Bubble网络。用户还可以初始化其它自定义网络，最后一个初始化的是当前网络.
 
 ```java
 NetworkParameters.init(2000L, "ABC");
@@ -85,18 +67,18 @@ NetworkParameters.init(2000L, "ABC");
 ```java
 NetworkParameters.selectNetwork(2000L, "ABC");
 ```
-> 或者直接选择PlatON主网络
+> 或者直接选择Bubble主网络
 >
 
 ```java
-NetworkParameters.selectPlatON();
+NetworkParameters.selectBubble();
 ```
 
 ### 钱包相关
 
-* **生成一个PlatON标准的钱包 n=16384 p=1 r=8**
+* **生成一个Bubble标准的钱包 n=16384 p=1 r=8**
 ```java
-String fileName = WalletUtils.generatePlatONWalletFile(PASSWORD, tempDir);
+String fileName = WalletUtils.generateBubbleWalletFile(PASSWORD, tempDir);
 ```
 
 * **生成一个标准的钱包 n=262144 p=1 r=8**
@@ -128,7 +110,7 @@ Credentials credentials = Credentials.create("0xXXXXXXXXXXXXXX...");
 
 * **获取当前网络参数的地址**
 ```java
-String bech32Address = credentials.getAddress();  
+String address = credentials.getAddress();  
 ```
 
 ## 基础RPC接口
@@ -154,8 +136,8 @@ Web3ClientVersion属性中的string即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, Web3ClientVersion> request = platonWeb3j.web3ClientVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, Web3ClientVersion> request = bubbleWeb3j.web3ClientVersion();
 String version = request.send().getWeb3ClientVersion();
 ```
 
@@ -178,9 +160,9 @@ Web3Sha3属性中的string即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String date = "";
-Request <?, Web3Sha3> request = platonWeb3j.web3Sha3(date);
+Request <?, Web3Sha3> request = bubbleWeb3j.web3Sha3(date);
 String resDate = request.send().getResult();
 ```
 
@@ -203,8 +185,8 @@ NetVersion属性中的string即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetVersion> request = platonWeb3j.netVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetVersion> request = bubbleWeb3j.netVersion();
 String version = request.send().getNetVersion();
 ```
 
@@ -227,8 +209,8 @@ NetListening属性中的boolean即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetListening> request = platonWeb3j.netListening();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetListening> request = bubbleWeb3j.netListening();
 boolean req = request.send().isListening();
 ```
 
@@ -251,14 +233,14 @@ NetPeerCount属性中的BigInteger即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetPeerCount> request = platonWeb3j.netPeerCount();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetPeerCount> request = bubbleWeb3j.netPeerCount();
 BigInteger req = request.send().getQuantity();
 ```
 
-### platonProtocolVersion
+### bubbleProtocolVersion
 
-> 返回当前platon协议版本
+> 返回当前bubble协议版本
 
 * **参数**
 
@@ -267,20 +249,20 @@ BigInteger req = request.send().getQuantity();
 * **返回值**
 
 ```java
-Request<?, PlatonProtocolVersion>
+Request<?, BubbleProtocolVersion>
 ```
 
-PlatonProtocolVersion属性中的String即为对应存储数据
+BubbleProtocolVersion属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonProtocolVersion> request = platonWeb3j.platonProtocolVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleProtocolVersion> request = bubbleWeb3j.bubbleProtocolVersion();
 String req = request.send().getProtocolVersion();
 ```
 
-### platonSyncing
+### bubbleSyncing
 
 > 返回一个对象，其中包含有关同步状态的数据或false
 
@@ -291,20 +273,20 @@ String req = request.send().getProtocolVersion();
 * **返回值**
 
 ```java
-Request<?, PlatonSyncing>
+Request<?, BubbleSyncing>
 ```
 
-PlatonSyncing属性中的String即为对应存储数据
+BubbleSyncing属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonSyncing> request = platonWeb3j.platonSyncing();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleSyncing> request = bubbleWeb3j.bubbleSyncing();
 boolean req = request.send().isSyncing();
 ```
 
-### platonGasPrice
+### bubbleGasPrice
 
 > 返回gas当前价格
 
@@ -315,20 +297,20 @@ boolean req = request.send().isSyncing();
 * **返回值**
 
 ```java
-Request<?, PlatonGasPrice>
+Request<?, BubbleGasPrice>
 ```
 
-PlatonGasPrice属性中的BigInteger即为对应存储数据
+BubbleGasPrice属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonGasPrice> request = platonWeb3j.platonGasPrice();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleGasPrice> request = bubbleWeb3j.bubbleGasPrice();
 BigInteger req = request.send().getGasPrice();
 ```
 
-### platonAccounts
+### bubbleAccounts
 
 > 返回客户端拥有的地址列表
 
@@ -339,20 +321,20 @@ BigInteger req = request.send().getGasPrice();
 * **返回值**
 
 ```java
-Request<?, PlatonAccounts>
+Request<?, BubbleAccounts>
 ```
 
-PlatonAccounts属性中的String数组即为对应存储数据
+BubbleAccounts属性中的String数组即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonAccounts> request = platonWeb3j.platonAccounts();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleAccounts> request = bubbleWeb3j.bubbleAccounts();
 List<String> req = request.send().getAccounts();
 ```
 
-### platonBlockNumber
+### bubbleBlockNumber
 
 > 返回当前最高块高
 
@@ -363,20 +345,20 @@ List<String> req = request.send().getAccounts();
 * **返回值**
 
 ```java
-Request<?, PlatonBlockNumber>
+Request<?, BubbleBlockNumber>
 ```
 
-PlatonBlockNumber属性中的BigInteger即为对应存储数据
+BubbleBlockNumber属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonBlockNumber> request = platonWeb3j.platonBlockNumber();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleBlockNumber> request = bubbleWeb3j.bubbleBlockNumber();
 BigInteger req = request.send().getBlockNumber();
 ```
 
-### platonGetBalance
+### bubbleGetBalance
 
 > 返回查询地址余额
 
@@ -391,21 +373,21 @@ BigInteger req = request.send().getBlockNumber();
 * **返回值**
 
 ```java
-Request<?, PlatonGetBalance>
+Request<?, BubbleGetBalance>
 ```
 
-PlatonGetBalance属性中的BigInteger即为对应存储数据
+BubbleGetBalance属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
 Web3j web3j = Web3j.build(new HttpService("http://localhost:6789"));
 String address = "";
-Request<?, PlatonGetBalance> request = web3j.platonGetBalance(address,DefaultBlockParameterName.LATEST);
+Request<?, BubbleGetBalance> request = web3j.bubbleGetBalance(address,DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getBalance();
 ```
 
-### platonGetStorageAt
+### bubbleGetStorageAt
 
 > 从给定地址的存储位置返回值
 
@@ -421,21 +403,21 @@ BigInteger req = request.send().getBalance();
 * **返回值**
 
 ```java
-Request<?, PlatonGetStorageAt>
+Request<?, BubbleGetStorageAt>
 ```
 
-PlatonGetStorageAt属性中的String即为对应存储数据
+BubbleGetStorageAt属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetStorageAt> request = platonWeb3j.platonGetStorageAt(address ,BigInteger.ZERO,DefaultBlockParameterName.LATEST );
+Request <?, BubbleGetStorageAt> request = bubbleWeb3j.bubbleGetStorageAt(address ,BigInteger.ZERO,DefaultBlockParameterName.LATEST );
 String req = request.send().getData();
 ```
 
-### platonGetBlockTransactionCountByHash
+### bubbleGetBlockTransactionCountByHash
 
 > 根据区块hash查询区块中交易个数
 
@@ -445,21 +427,21 @@ String req = request.send().getData();
 * **返回值**
 
 ```java
-Request<?, PlatonGetBlockTransactionCountByHash>
+Request<?, BubbleGetBlockTransactionCountByHash>
 ```
 
-PlatonGetBlockTransactionCountByHash属性中的BigInteger即为对应存储数据
+BubbleGetBlockTransactionCountByHash属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockhash = "";
-Request <?, PlatonGetBlockTransactionCountByHash> request = currentValidWeb3j.platonGetBlockTransactionCountByHash(blockhash);
+Request <?, BubbleGetBlockTransactionCountByHash> request = currentValidWeb3j.bubbleGetBlockTransactionCountByHash(blockhash);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetTransactionCount
+### bubbleGetTransactionCount
 
 > 根据地址查询该地址发送的交易个数
 
@@ -474,21 +456,21 @@ BigInteger req = request.send().getTransactionCount();
 * **返回值**
 
 ```java
-Request<?, PlatonGetTransactionCount>
+Request<?, BubbleGetTransactionCount>
 ```
 
-PlatonGetTransactionCount属性中的BigInteger即为对应存储数据
+BubbleGetTransactionCount属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetTransactionCount> request = platonWeb3j.platonGetTransactionCount(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleGetTransactionCount> request = bubbleWeb3j.bubbleGetTransactionCount(address,DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetBlockTransactionCountByNumber
+### bubbleGetBlockTransactionCountByNumber
 
 > 根据区块块高，返回块高中的交易总数
 
@@ -502,20 +484,20 @@ BigInteger req = request.send().getTransactionCount();
 * **返回值**
 
 ```java
-Request<?, PlatonGetBlockTransactionCountByNumber>
+Request<?, BubbleGetBlockTransactionCountByNumber>
 ```
 
-PlatonGetBlockTransactionCountByNumber属性中的BigInteger即为对应存储数据
+BubbleGetBlockTransactionCountByNumber属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonGetBlockTransactionCountByNumber> request = platonWeb3j.platonGetBlockTransactionCountByNumber(DefaultBlockParameterName.LATEST);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleGetBlockTransactionCountByNumber> request = bubbleWeb3j.bubbleGetBlockTransactionCountByNumber(DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetCode
+### bubbleGetCode
 
 >  返回给定地址的代码
 
@@ -531,21 +513,21 @@ BigInteger req = request.send().getTransactionCount();
 * **返回值**
 
 ```java
-Request<?, PlatonGetCode>
+Request<?, BubbleGetCode>
 ```
 
-PlatonGetCode属性中的String即为对应存储数据
+BubbleGetCode属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetCode> request = platonWeb3j.platonGetCode(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleGetCode> request = bubbleWeb3j.bubbleGetCode(address,DefaultBlockParameterName.LATEST);
 String req = request.send().getCode();
 ```
 
-### platonSign
+### bubbleSign
 
 >  数据签名
 
@@ -556,24 +538,24 @@ String req = request.send().getCode();
 * **返回值**
 
 ```java
-Request<?, PlatonSign>
+Request<?, BubbleSign>
 ```
 
-PlatonSign属性中的String即为对应存储数据
+BubbleSign属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
 String sha3HashOfDataToSign   = "";
-Request <?, PlatonSign> request = platonWeb3j.platonSign(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleSign> request = bubbleWeb3j.bubbleSign(address,DefaultBlockParameterName.LATEST);
 String req = request.send().getSignature();
 ```
 
 备注：地址必须提前先解锁
 
-### platonSendTransaction
+### bubbleSendTransaction
 
 >  发送服务代签名交易
 
@@ -586,27 +568,27 @@ String req = request.send().getSignature();
       - BigInteger ：value ： 转账金额
       - String ：data ： 上链数据
       - BigInteger ：nonce ： 交易唯一性标识
-        - 调用platonGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
+        - 调用bubbleGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
         - 每次使用该地址nonce +1
 
 * **返回值**
 
 ```java
-Request<?, PlatonSendTransaction>
+Request<?, BubbleSendTransaction>
 ```
 
-PlatonSendTransaction属性中的String即为对应存储数据
+BubbleSendTransaction属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonSendTransaction(transaction);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleSendTransaction(transaction);
 String req = request.send().getTransactionHash();
 ```
 
-### platonSendRawTransaction
+### bubbleSendRawTransaction
 
 >  发送交易
 
@@ -616,21 +598,21 @@ String req = request.send().getTransactionHash();
 * **返回值**
 
 ```java
-Request<?, PlatonSendTransaction>
+Request<?, BubbleSendTransaction>
 ```
 
-PlatonSendTransaction属性中的String即为对应存储数据
+BubbleSendTransaction属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String  data = "";
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonSendRawTransaction(data);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleSendRawTransaction(data);
 String req = request.send().getTransactionHash();
 ```
 
-### platonCall
+### bubbleCall
 
 >   执行一个消息调用交易，消息调用交易直接在节点旳VM中执行而 不需要通过区块链的挖矿来执行
 
@@ -643,27 +625,27 @@ String req = request.send().getTransactionHash();
       - BigInteger ：value ： 转账金额
       - String ：data ： 上链数据
       - BigInteger ：nonce ： 交易唯一性标识
-        - 调用platonGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
+        - 调用bubbleGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
         - 每次使用该地址nonce +1
 
 * **返回值**
 
 ```java
-Request<?, PlatonCall>
+Request<?, BubbleCall>
 ```
 
-PlatonCall属性中的String即为对应存储数据
+BubbleCall属性中的String即为对应存储数据
 
 * **示例**
 
 ```javas
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonCall(transaction);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleCall(transaction);
 String req = request.send().getValue();
 ```
 
-### platonEstimateGas
+### bubbleEstimateGas
 
 >   估算合约方法gas用量
 
@@ -676,27 +658,27 @@ String req = request.send().getValue();
       - BigInteger ：value ： 转账金额
       - String ：data ： 上链数据
       - BigInteger ：nonce ： 交易唯一性标识
-        - 调用platonGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
+        - 调用bubbleGetTransactionCount，获取from地址作为参数，获取到该地址的已发送交易总数
         - 每次使用该地址nonce +1
 
 * **返回值**
 
 ```java
-Request<?, PlatonEstimateGas>
+Request<?, BubbleEstimateGas>
 ```
 
-PlatonEstimateGas属性中的BigInteger即为对应存储数据
+BubbleEstimateGas属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonEstimateGas> request = platonWeb3j.platonEstimateGas(transaction);
+Request <?, BubbleEstimateGas> request = bubbleWeb3j.bubbleEstimateGas(transaction);
 BigInteger req = request.send().getAmountUsed();
 ```
 
-### platonGetBlockByHash
+### bubbleGetBlockByHash
 
 >  根据区块hash查询区块信息
 
@@ -709,22 +691,22 @@ BigInteger req = request.send().getAmountUsed();
 * **返回值**
 
 ```java
-Request<?, PlatonBlock>
+Request<?, BubbleBlock>
 ```
 
-PlatonBlock属性中的Block即为对应存储数据
+BubbleBlock属性中的Block即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash  = "";
 
-Request <?, PlatonBlock> request = platonWeb3j.platonGetBlockByHash(blockHash,true);
+Request <?, BubbleBlock> request = bubbleWeb3j.bubbleGetBlockByHash(blockHash,true);
 Block req = request.send().getBlock();
 ```
 
-### platonGetBlockByNumber
+### bubbleGetBlockByNumber
 
 >  根据区块高度查询区块信息
 
@@ -741,20 +723,20 @@ Block req = request.send().getBlock();
 * **返回值**
 
 ```java
-Request<?, PlatonBlock>
+Request<?, BubbleBlock>
 ```
 
-PlatonBlock属性中的Block即为对应存储数据
+BubbleBlock属性中的Block即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonBlock> request = platonWeb3j.platonGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,true);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleBlock> request = bubbleWeb3j.bubbleGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,true);
 Block req = request.send().getBlock();
 ```
 
-### platonGetTransactionByBlockHashAndIndex
+### bubbleGetTransactionByBlockHashAndIndex
 
 >  根据区块hash查询区块中指定序号的交易
 
@@ -765,21 +747,21 @@ Block req = request.send().getBlock();
 * **返回值**
 
 ```java
-Request<?, PlatonTransaction>
+Request<?, BubbleTransaction>
 ```
 
-PlatonTransaction属性中的Transaction即为对应存储数据
+BubbleTransaction属性中的Transaction即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonTransaction> request = platonWeb3j.platonGetTransactionByHash(blockHash,BigInteger.ZERO);
+Request <?, BubbleTransaction> request = bubbleWeb3j.bubbleGetTransactionByHash(blockHash,BigInteger.ZERO);
 Optional<Transaction> req = request.send().getTransaction();
 ```
 
-### platonGetTransactionByBlockNumberAndIndex
+### bubbleGetTransactionByBlockNumberAndIndex
 
 >  根据区块高度查询区块中指定序号的交易
 
@@ -794,21 +776,21 @@ Optional<Transaction> req = request.send().getTransaction();
 * **返回值**
 
 ```java
-Request<?, PlatonTransaction>
+Request<?, BubbleTransaction>
 ```
 
-PlatonTransaction属性中的Transaction即为对应存储数据
+BubbleTransaction属性中的Transaction即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonTransaction> request = platonWeb3j.platonGetTransactionByHash(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
+Request <?, BubbleTransaction> request = bubbleWeb3j.bubbleGetTransactionByHash(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
 Optional<Transaction> req = request.send().getTransaction();
 ```
 
-### platonGetTransactionReceipt
+### bubbleGetTransactionReceipt
 
 >  根据交易hash查询交易回执
 
@@ -818,47 +800,47 @@ Optional<Transaction> req = request.send().getTransaction();
 * **返回值**
 
 ```java
-Request<?, PlatonGetTransactionReceipt>
+Request<?, BubbleGetTransactionReceipt>
 ```
 
-PlatonGetTransactionReceipt属性中的Transaction即为对应存储数据
+BubbleGetTransactionReceipt属性中的Transaction即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonGetTransactionReceipt> request = platonWeb3j.platonGetTransactionReceipt(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
+Request <?, BubbleGetTransactionReceipt> request = bubbleWeb3j.bubbleGetTransactionReceipt(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
 Optional<TransactionReceipt> req = request.send().getTransactionReceipt();
 ```
 
-### platonNewFilter
+### bubbleNewFilter
 
 >   创建一个过滤器，以便在客户端接收到匹配的whisper消息时进行通知
 
 * **参数**
-    - PlatonFilter:  PlatonFilter :
+    - BubbleFilter:  BubbleFilter :
       - SingleTopic :
 
 * **返回值**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-PlatonFilter属性中的BigInteger即为对应存储数据
+BubbleFilter属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-org.web3j.protocol.core.methods.request.PlatonFilter filter = new org.web3j.protocol.core.methods.request.PlatonFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+org.web3j.protocol.core.methods.request.BubbleFilter filter = new org.web3j.protocol.core.methods.request.BubbleFilter();
 filter.addSingleTopic("");
-Request <?, PlatonFilter> request = platonWeb3j.platonNewFilter(filter);
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewFilter(filter);
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewBlockFilter
+### bubbleNewBlockFilter
 
 >   在节点中创建一个过滤器，以便当新块生成时进行通知。要检查状态是否变化
 
@@ -869,20 +851,20 @@ BigInteger req = request.send().getFilterId();
 * **返回值**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-PlatonFilter属性中的BigInteger即为对应存储数据
+BubbleFilter属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewBlockFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewBlockFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewPendingTransactionFilter
+### bubbleNewPendingTransactionFilter
 
 >    在节点中创建一个过滤器，以便当产生挂起交易时进行通知。 要检查状态是否发生变化
 
@@ -893,20 +875,20 @@ BigInteger req = request.send().getFilterId();
 * **返回值**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-PlatonFilter属性中的BigInteger即为对应存储数据
+BubbleFilter属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewPendingTransactionFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewPendingTransactionFilter
+### bubbleNewPendingTransactionFilter
 
 >  写在具有指定编号的过滤器。当不在需要监听时，总是需要执行该调用
 
@@ -917,20 +899,20 @@ BigInteger req = request.send().getFilterId();
 * **返回值**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-PlatonFilter属性中的BigInteger即为对应存储数据
+BubbleFilter属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewPendingTransactionFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonUninstallFilter
+### bubbleUninstallFilter
 
 >     写在具有指定编号的过滤器。当不在需要监听时，总是需要执行该调用
 
@@ -940,20 +922,20 @@ BigInteger req = request.send().getFilterId();
 * **返回值**
 
 ```java
-Request<?, PlatonUninstallFilter>
+Request<?, BubbleUninstallFilter>
 ```
 
-PlatonUninstallFilter属性中的boolean即为对应存储数据
+BubbleUninstallFilter属性中的boolean即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonUninstallFilter> request = platonWeb3j.platonNewPendingTransactionFilter(BigInteger.ZERO);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleUninstallFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter(BigInteger.ZERO);
 boolean req = request.send().isUninstalled();
 ```
 
-### platonGetFilterChanges
+### bubbleGetFilterChanges
 
 >    轮询指定的过滤器，并返回自上次轮询之后新生成的日志数组
 
@@ -963,20 +945,20 @@ boolean req = request.send().isUninstalled();
 * **返回值**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-PlatonLog属性中的LogResult数组即为对应存储数据
+BubbleLog属性中的LogResult数组即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonLog> request = platonWeb3j.platonGetFilterChanges(BigInteger.ZERO);
-List<PlatonLog.LogResult> req = request.send().getLogs();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetFilterChanges(BigInteger.ZERO);
+List<BubbleLog.LogResult> req = request.send().getLogs();
 ```
 
-### platonGetFilterLogs
+### bubbleGetFilterLogs
 
 >     轮询指定的过滤器，并返回自上次轮询之后新生成的日志数组。
 
@@ -986,46 +968,46 @@ List<PlatonLog.LogResult> req = request.send().getLogs();
 * **返回值**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-PlatonLog属性中的LogResult数组即为对应存储数据
+BubbleLog属性中的LogResult数组即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonLog> request = platonWeb3j.platonGetFilterLogs(BigInteger.ZERO);
-List<PlatonLog.LogResult> req = request.send().getLogs();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetFilterLogs(BigInteger.ZERO);
+List<BubbleLog.LogResult> req = request.send().getLogs();
 ```
 
-### platonGetLogs
+### bubbleGetLogs
 
 >    返回指定过滤器中的所有日志
 
 * **参数**
-    - PlatonFilter:  PlatonFilter :
+    - BubbleFilter:  BubbleFilter :
       - SingleTopic :
 
 * **返回值**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-PlatonLog属性中的BigInteger即为对应存储数据
+BubbleLog属性中的BigInteger即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-org.web3j.protocol.core.methods.request.PlatonFilter filter = new org.web3j.protocol.core.methods.request.PlatonFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+org.web3j.protocol.core.methods.request.BubbleFilter filter = new org.web3j.protocol.core.methods.request.BubbleFilter();
 filter.addSingleTopic("");
-Request <?, PlatonLog> request = platonWeb3j.platonGetLogs(filter);
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetLogs(filter);
 List<LogResult> = request.send().getLogs();
 ```
 
-### platonPendingTransactions
+### bubblePendingTransactions
 >查询待处理交易
 
 * **参数**
@@ -1035,16 +1017,16 @@ List<LogResult> = request.send().getLogs();
 * **返回值**
 
 ```java
-Request<?, PlatonPendingTransactions>
+Request<?, BubblePendingTransactions>
 ```
 
-PlatonPendingTransactions属性中的transactions即为对应存储数据
+BubblePendingTransactions属性中的transactions即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonPendingTransactions> req = platonWeb3j.platonPendingTx();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubblePendingTransactions> req = bubbleWeb3j.bubblePendingTx();
 EthPendingTransactions res = req.send();
 List<Transaction> transactions = res.getTransactions();
 ```
@@ -1069,11 +1051,11 @@ DbPutString属性中的boolean即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
 String stringToStore;
-Request <?, DbPutString> request = platonWeb3j.dbPutString(databaseName,keyName,stringToStore);
+Request <?, DbPutString> request = bubbleWeb3j.dbPutString(databaseName,keyName,stringToStore);
 List<DbPutString> = request.send().valueStored();
 ```
 
@@ -1096,10 +1078,10 @@ DbGetString属性中的String即为对应存储数据
 **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
-Request <?, DbGetString> request = platonWeb3j.dbGetString(databaseName,keyName);
+Request <?, DbGetString> request = bubbleWeb3j.dbGetString(databaseName,keyName);
 String req  = request.send().getStoredValue();
 ```
 
@@ -1123,11 +1105,11 @@ DbPutHex属性中的boolean即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
 String dataToStore;
-Request <?, DbPutHex> request = platonWeb3j.dbPutHex(databaseName,keyName,dataToStore);
+Request <?, DbPutHex> request = bubbleWeb3j.dbPutHex(databaseName,keyName,dataToStore);
 boolean req  = request.send().valueStored();
 ```
 
@@ -1150,14 +1132,14 @@ DbGetHex属性中的String即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
-Request <?, DbGetHex> request = platonWeb3j.dbGetHex(databaseName,keyName);
+Request <?, DbGetHex> request = bubbleWeb3j.dbGetHex(databaseName,keyName);
 String req  = request.send().getStoredValue();
 ```
 
-### platonEvidences
+### bubbleEvidences
 
 >    返回双签举报数据
 
@@ -1288,16 +1270,16 @@ result为证据字符串，包含3种证据类型，分别是：duplicatePrepare
 * **返回值**
 
 ```java
-Request<?, PlatonEvidences>
+Request<?, BubbleEvidences>
 ```
 
-PlatonEvidences属性中的Evidences对象即为对应存储数据
+BubbleEvidences属性中的Evidences对象即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonEvidences> req = platonWeb3j.platonEvidences();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubbleEvidences> req = bubbleWeb3j.bubbleEvidences();
 Evidences evidences = req.send().getEvidences();
 ```
 
@@ -1320,8 +1302,8 @@ AdminProgramVersion属性中的ProgramVersion对象即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, AdminProgramVersion> req = platonWeb3j.getProgramVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, AdminProgramVersion> req = bubbleWeb3j.getProgramVersion();
 ProgramVersion programVersion = req.send().getAdminProgramVersion();
 ```
 
@@ -1348,14 +1330,14 @@ AdminSchnorrNIZKProve属性中的String即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, AdminProgramVersion> req = platonWeb3j.getSchnorrNIZKProve();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, AdminProgramVersion> req = bubbleWeb3j.getSchnorrNIZKProve();
 String res = req.send().getAdminSchnorrNIZKProve();
 ```
 
 ### getEconomicConfig
 
->    获取PlatON参数配置
+>    获取Bubble参数配置
 
 * **参数**
 
@@ -1372,8 +1354,8 @@ DebugEconomicConfig属性中的String即为对应存储数据
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, DebugEconomicConfig> req = platonWeb3j.getEconomicConfig();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, DebugEconomicConfig> req = bubbleWeb3j.getEconomicConfig();
 String debugEconomicConfig = req.send().getEconomicConfigStr();
 ```
 
@@ -1387,16 +1369,16 @@ String debugEconomicConfig = req.send().getEconomicConfigStr();
 * **返回值**
 
 ```java
-Request<?, PlatonChainId>
+Request<?, BubbleChainId>
 ```
 
-PlatonChainId属性中的String即为对应存储数据
+BubbleChainId属性中的String即为对应存储数据
 
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonChainId> req = platonWeb3j.getChainId();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubbleChainId> req = bubbleWeb3j.getChainId();
 BigInteger chainId = req.send().getChainId();
 ```
 
@@ -1419,8 +1401,8 @@ DebugWaitSlashingNodeList属性中的WaitSlashingNode列表对象即为对应存
 * **示例**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, DebugWaitSlashingNodeList> req = platonWeb3j.getWaitSlashingNodeList();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, DebugWaitSlashingNodeList> req = bubbleWeb3j.getWaitSlashingNodeList();
 DebugWaitSlashingNodeList nodeList = req.send();
 ```
 
@@ -1459,7 +1441,7 @@ StakingContract stakingContract = StakingContract.load(web3j, credentials);
 
 * **入参**
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
   - BigInteger：stakingAmount  质押的金额，单位VON，默认质押金额必须大于等于1000000LAT，该大小限制可以通过治理参数动态调整，可通过治理接口获得当前值（proposalContract.getGovernParamValue("staking", "stakeThreshold")）。
   - StakingAmountType：stakingAmountType  表示使用账户自由金额还是账户的锁仓金额做质押，StakingAmountType.FREE_AMOUNT_TYPE：自由金额，StakingAmountType.RESTRICTING_AMOUNT_TYPE：锁仓金额，StakingAmountType.AUTO_AMOUNT_TYPE：优先使用锁仓余额，锁仓余额不足则剩下的部分使用自由金额
   - String：benifitAddress   收益账户，用于接收出块奖励和质押奖励的收益账户。
@@ -1492,12 +1474,12 @@ StakingAmountType stakingAmountType = StakingAmountType.FREE_AMOUNT_TYPE;
 String benifitAddress = "lat1qtp5fqtmudzge9aqt9rnzgdxv729pdq5vug5vt";
 String externalId = "";
 String nodeName = "integration-node1";
-String webSite = "https://www.platon.network/#/";
+String webSite = "https://www.bubble.network/#/";
 String details = "integration-node1-details";
 String blsPubKey = "5ccd6b8c32f2713faa6c9a46e5fb61ad7b7400e53fabcbc56bdc0c16fbfffe09ad6256982c7059e7383a9187ad93a002a7cda7a75d569f591730481a8b91b5fad52ac26ac495522a069686df1061fc184c31771008c1fedfafd50ae794778811";
 BigInteger rewardPer = BigInteger.valueOf(1000L);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.stakingReturnTransaction(new StakingParam.Builder()
+BubbleSendTransaction bubbleSendTransaction = stakingContract.stakingReturnTransaction(new StakingParam.Builder()
         .setNodeId(nodeId)
         .setAmount(stakingAmount.toBigInteger())
         .setStakingAmountType(stakingAmountType)
@@ -1511,7 +1493,7 @@ PlatonSendTransaction platonSendTransaction = stakingContract.stakingReturnTrans
         .setBlsProof(web3j.getSchnorrNIZKProve().send().getAdminSchnorrNIZKProve())
         .setRewardPer(rewardPer)
         .build()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **unStaking**
@@ -1520,7 +1502,7 @@ TransactionResponse baseResponse = stakingContract.getTransactionResponse(platon
 
 * **入参**
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
 
 * **返回值**
 
@@ -1538,8 +1520,8 @@ TransactionResponse
 ```java
 String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050";
 
-PlatonSendTransaction platonSendTransaction = stakingContract.unStakingReturnTransaction(nodeId).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = stakingContract.unStakingReturnTransaction(nodeId).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **updateStaking**
@@ -1548,7 +1530,7 @@ TransactionResponse baseResponse = stakingContract.getTransactionResponse(platon
 
 * **入参**
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
   - String：benifitAddress   收益账户，用于接收出块奖励和质押奖励的收益账户。
   - String：nodeName   节点的名称
   - String：externalId   外部Id(有长度限制，给第三方拉取节点描述的Id)，目前为keybase账户公钥，节点图标是通过该公钥获取。
@@ -1574,11 +1556,11 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 String benifitAddress = "lat1qtp5fqtmudzge9aqt9rnzgdxv729pdq5vug5vt";
 String externalId = "";
 String nodeName = "integration-node1-u";
-String webSite = "https://www.platon.network/#/";
+String webSite = "https://www.bubble.network/#/";
 String details = "integration-node1-details-u";
 BigInteger rewardPer = BigInteger.valueOf(1000L);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new UpdateStakingParam.Builder()
+BubbleSendTransaction bubbleSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new UpdateStakingParam.Builder()
         .setBenifitAddress(benifitAddress)
         .setExternalId(externalId)
         .setNodeId(nodeId)
@@ -1587,7 +1569,7 @@ PlatonSendTransaction platonSendTransaction = stakingContract.updateStakingInfoR
         .setDetails(details)
         .setRewardPer(rewardPer)
         .build()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **addStaking**
@@ -1596,7 +1578,7 @@ TransactionResponse baseResponse = stakingContract.getTransactionResponse(platon
 
 * **入参**
 
-    - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+    - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
     - StakingAmountType：stakingAmountType  表示使用账户自由金额还是账户的锁仓金额做质押，StakingAmountType.FREE_AMOUNT_TYPE：自由金额，StakingAmountType.RESTRICTING_AMOUNT_TYPE：锁仓金额
     - BigInteger：addStakingAmount   增持的金额，单位VON
 
@@ -1618,8 +1600,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 StakingAmountType stakingAmountType = StakingAmountType.FREE_AMOUNT_TYPE;
 BigDecimal addStakingAmount = Convert.toVon("4000000", Unit.KPVON);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.addStakingReturnTransaction(nodeId, stakingAmountType, addStakingAmount.toBigInteger()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = stakingContract.addStakingReturnTransaction(nodeId, stakingAmountType, addStakingAmount.toBigInteger()).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getStakingInfo**
@@ -1628,7 +1610,7 @@ TransactionResponse baseResponse = stakingContract.getTransactionResponse(platon
 
 * **入参**
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
 
 * **返回值**
 
@@ -1647,7 +1629,7 @@ CallResponse<Node> baseRespons
 
   - String：details  节点的描述(有长度限制，表示该节点的描述)
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
 
   - String：nodeName  节点的名称
 
@@ -1773,7 +1755,7 @@ CallResponse<BigInteger> response = stakingContract.getAvgPackTime().send();
 
 ### 委托相关接口
 
-> PlatON经济模型中委托人相关的合约接口
+> Bubble经济模型中委托人相关的合约接口
 
 #### 加载委托合约
 
@@ -1792,7 +1774,7 @@ DelegateContract delegateContract = DelegateContract.load(web3j, credentials);
 
 * **入参**
 
-  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（platon attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
+  - String：nodeId   节点id，16进制格式，即节点公钥，可以通过管理台查询（bubble attach http://127.0.0.1:6789 --exec "admin.nodeInfo.id"）。
   - DelegateAmountType：delegateAmountType   委托金额的类型，DelegateAmountType.FREE_AMOUNT_TYPE：自由金额，DelegateAmountType.RESTRICTING_AMOUNT_TYPE：锁仓金额，DelegateAmountType.DELEGATE_LOCK_AMOUNT_TYPE：委托锁定金额
   - BigInteger：amount   委托的金额，单位VON，默认委托金额必须大于等于10LAT，该大小限制可以通过治理参数动态调整，可通过治理接口获得当前值（proposalContract.getGovernParamValue("staking", "operatingThreshold")）。
 
@@ -1814,8 +1796,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 DelegateAmountType delegateAmountType = DelegateAmountType.FREE_AMOUNT_TYPE;
 BigDecimal amot = Counnvert.toVon("500000", Unit.KPVON);
 
-PlatonSendTransaction platonSendTransaction = delegateContract.delegateReturnTransaction(nodeId, delegateAmountType, amount.toBigInteger()).send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.delegateReturnTransaction(nodeId, delegateAmountType, amount.toBigInteger()).send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getRelatedListByDelAddr**
@@ -1928,8 +1910,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 BigDecimal stakingAmount = Convert.toVon("500000", Unit.KPVON);
 BigInteger stakingBlockNum = new BigInteger("12134");
 
-PlatonSendTransaction platonSendTransaction = delegateContract.unDelegateReturnTransaction(nodeId, stakingBlockNum, stakingAmount.toBigInteger()).send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.unDelegateReturnTransaction(nodeId, stakingBlockNum, stakingAmount.toBigInteger()).send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 
 if(baseResponse.isStatusOk()){
     UnDelegation unDelegation = delegateContract.decodeUnDelegateLogOfNew(baseResponse.getTransactionReceipt());
@@ -1963,8 +1945,8 @@ TransactionResponse
 * **Java SDK合约使用**
 
 ```java
-PlatonSendTransaction platonSendTransaction = delegateContract.redeemDelegationReturnTransaction().send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.redeemDelegationReturnTransaction().send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 
 if(baseResponse.isStatusOk()){
     RedeemDelegation redeemDelegation = delegateContract.decodeRedeemDelegateLog(baseResponse.getTransactionReceipt());
@@ -2010,7 +1992,7 @@ CallResponse<DelegationLockInfo> baseResponse = delegateContract.getDelegationLo
 
 ### 奖励相关接口
 
-> PlatON经济模型中奖励相关的合约接口
+> Bubble经济模型中奖励相关的合约接口
 
 #### 加载奖励合约
 
@@ -2050,8 +2032,8 @@ TransactionResponse
 * **合约使用**
 
 ```java
-PlatonSendTransaction platonSendTransaction = rewardContract.withdrawDelegateRewardReturnTransaction().send();
-TransactionResponse baseResponse = rewardContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = rewardContract.withdrawDelegateRewardReturnTransaction().send();
+TransactionResponse baseResponse = rewardContract.getTransactionResponse(bubbleSendTransaction).send();
 if(baseResponse.isStatusOk()){
     List<Reward> rewardList = rewardContract.decodeWithdrawDelegateRewardLog(baseResponse.getTransactionReceipt());
 }
@@ -2091,7 +2073,7 @@ CallResponse<List<Reward>> baseResponse = rewardContract.getDelegateReward(deleg
 
 ### 节点相关合约
 
-> PlatON经济模型中委托人相关的合约接口
+> Bubble经济模型中委托人相关的合约接口
 
 #### 加载节点合约
 
@@ -2137,7 +2119,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger：stakingTxIndex   发起质押时的交易索引
 
-  - BigInteger：programVersion  被质押节点的PlatON进程的真实版本号(获取版本号的接口由治理提供)
+  - BigInteger：programVersion  被质押节点的Bubble进程的真实版本号(获取版本号的接口由治理提供)
 
   - BigInteger：stakingBlockNum    发起质押时的区块高度
 
@@ -2195,7 +2177,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger：stakingTxIndex   发起质押时的交易索引
 
-  - BigInteger：programVersion  被质押节点的PlatON进程的真实版本号(获取版本号的接口由治理提供)
+  - BigInteger：programVersion  被质押节点的Bubble进程的真实版本号(获取版本号的接口由治理提供)
 
   - BigInteger：stakingBlockNum    发起质押时的区块高度
 
@@ -2258,7 +2240,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger：stakingTxIndex   发起质押时的交易索引
 
-  - BigInteger：programVersion  被质押节点的PlatON进程的真实版本号(获取版本号的接口由治理提供)
+  - BigInteger：programVersion  被质押节点的Bubble进程的真实版本号(获取版本号的接口由治理提供)
 
   - BigInteger：status   候选人的状态，0: 节点可用，1: 节点不可用 ，2:节点出块率低但没有达到移除条件的，4:节点的VON不足最低质押门槛，8:节点被举报双签，16:节点出块率低且达到移除条件, 32: 节点主动发起撤销
 
@@ -2300,7 +2282,7 @@ CallResponse<List<Node>> baseResponse = nodeContract.getCandidateList().send();
 
 ###  治理相关合约
 
-> PlatON治理相关的合约接口
+> Bubble治理相关的合约接口
 
 #### 加载治理合约
 
@@ -2360,8 +2342,8 @@ TransactionResponse
 ```java
 Proposal proposal = Proposal.createSubmitTextProposalParam(proposalNodeId,"1");
 
-PlatonSendTransaction platonSendTransaction = proposalContract.submitProposalReturnTransaction(proposal).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.submitProposalReturnTransaction(proposal).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **vote**
@@ -2394,8 +2376,8 @@ VoteOption voteOption =  VoteOption.YEAS;
 String proposalID = "";
 String verifier = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050";
 
-PlatonSendTransaction platonSendTransaction = proposalContract.voteReturnTransaction(programVersion, voteOption, proposalID, verifier).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.voteReturnTransaction(programVersion, voteOption, proposalID, verifier).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getProposal**
@@ -2543,8 +2525,8 @@ TransactionResponse
 ProgramVersion programVersion = web3j.getProgramVersion().send().getAdminProgramVersion();
 String verifier = "";
 
-PlatonSendTransaction platonSendTransaction = proposalContract.declareVersionReturnTransaction(programVersion,verifier).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.declareVersionReturnTransaction(programVersion,verifier).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getActiveVersion**
@@ -2575,7 +2557,7 @@ ProposalUtils.versionInterToStr(baseResponse.getData());
 
 ###  双签举报相关接口
 
-> PlatON举报惩罚相关的合约接口
+> Bubble举报惩罚相关的合约接口
 
 #### 加载举报合约
 
@@ -2612,9 +2594,9 @@ TransactionResponse
 
 ```java
 String data = "";	//举报证据
-PlatonSendTransaction platonSendTransaction = slashContract.reportDoubleSignReturnTransaction(DuplicateSignType.PREPARE_BLOCK, data).send();
+BubbleSendTransaction bubbleSendTransaction = slashContract.reportDoubleSignReturnTransaction(DuplicateSignType.PREPARE_BLOCK, data).send();
 
-TransactionResponse baseResponse = slashContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = slashContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **checkDuplicateSign**
@@ -2646,7 +2628,7 @@ CallResponse<String> baseResponse = slashContract.checkDoubleSign(DuplicateSignT
 
 ###  锁仓相关接口
 
-> PlatON锁仓相关接口
+> Bubble锁仓相关接口
 
 #### 加载锁仓合约
 
@@ -2688,8 +2670,8 @@ List<RestrictingPlan> restrictingPlans = new ArrayList<>();
 restrictingPlans.add(new RestrictingPlan(BigInteger.valueOf(100), new BigInteger("100000000000000000000")));
 restrictingPlans.add(new RestrictingPlan(BigInteger.valueOf(200), new BigInteger("200000000000000000000")));
 
-PlatonSendTransaction platonSendTransaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(restrictingRecvCredentials.getAddress(), restrictingPlans).send();
-TransactionResponse baseResponse = restrictingPlanContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(restrictingRecvCredentials.getAddress(), restrictingPlans).send();
+TransactionResponse baseResponse = restrictingPlanContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getRestrictingInfo**
@@ -2732,7 +2714,7 @@ CallResponse<RestrictingItem> baseResponse = restrictingPlanContract.getRestrict
 
 ### 编译solidity源代码
 
-* 通过`solc`编译器编译solidity源代码，请根据合约声明的编译器版本下载对应solc编译器版本([solc下载](https://github.com/PlatONnetwork/solidity/releases))：
+* 通过`solc`编译器编译solidity源代码，请根据合约声明的编译器版本下载对应solc编译器版本([solc下载](https://github.com/Bubblenetwork/solidity/releases))：
 
 ```shell
 $ solc <contract>.sol --bin --abi --optimize -o <output-dir>/
@@ -2741,12 +2723,12 @@ $ solc <contract>.sol --bin --abi --optimize -o <output-dir>/
 `bin`，输出包含十六进制编码的solidity二进制文件以提供交易请求。
 `abi`，输出一个solidity的应用程序二进制接口（`ABI`）文件，它详细描述了所有可公开访问的合约方法及其相关参数。`abi`文件也用于生成solidity智能合约对应的Java包装类。
 
-* 使用`platon-truffle`编译solidity源代码([platon-truffle开发工具安装参考](https://platon-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[platon-truffle开发工具使用手册](https://platon-truffle.readthedocs.io/en/v1.0.0/))：
+* 使用`bubble-truffle`编译solidity源代码([bubble-truffle开发工具安装参考](https://bubble-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[bubble-truffle开发工具使用手册](https://bubble-truffle.readthedocs.io/en/v1.0.0/))：
 
-> **step1.** 使用platon-truffle初始化项目
+> **step1.** 使用bubble-truffle初始化项目
 
 ```
-在安装有platon-truffle的服务器上面先初始化一个工程。
+在安装有bubble-truffle的服务器上面先初始化一个工程。
 mkdir HelloWorld
 cd HelloWorld
 truffle init
@@ -2822,17 +2804,17 @@ Warning: This is a pre-release compiler version, please do not use it in product
 
 Java SDK支持从`abi`文件中自动生成Solidity智能合约对应的Java包装类。
 
-* 通过命令行工具生成Java包装类（[platon-web3j下载](https://download.platon.network/platon/sdk/1.1.0/platon-web3j-1.1.0.0.zip)）：
+* 通过命令行工具生成Java包装类（[bubble-web3j下载](https://download.bubble.network/bubble/sdk/1.1.0/bubble-web3j-1.1.0.0.zip)）：
 
 ```shell
-$ platon-web3j solidity generate [--javaTypes|--solidityTypes] /path/to/<smart-contract>.bin /path/to/<smart-contract>.abi -o /path/to/src/main/java -p com.your.organisation.name
+$ bubble-web3j solidity generate [--javaTypes|--solidityTypes] /path/to/<smart-contract>.bin /path/to/<smart-contract>.abi -o /path/to/src/main/java -p com.your.organisation.name
 ```
 
 * 直接调用Java SDK中的工具类生成Java包装类：
 
 ```java
 // 通过maven或gradle导入console模块
-compile "com.platon.sdk:console:{version}"
+compile "com.bubble.sdk:console:{version}"
 
 String args[] = {"generate", "/path/to/<smart-contract>.bin", "/path/to/<smart-contract>.abi", "-o", "/path/to/src/main/java", "-p" , "com.your.organisation.name"};
 org.web3j.codegen.SolidityFunctionWrapperGenerator.run(args);
@@ -2888,14 +2870,14 @@ contract.isValid();  // returns false if the contract bytecode does not match wh
 ```
 
 #### 交易管理器
-Java SDK提供了一个交易管理器`TransactionManager`来控制你连接到PlatON客户端的方式。默认采用`RawTransactionManager`。
+Java SDK提供了一个交易管理器`TransactionManager`来控制你连接到Bubble客户端的方式。默认采用`RawTransactionManager`。
 `RawTransactionManager`需要指定链ID。防止一个链的交易被重新广播到另一个链上：
 
 ```java
 TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
 ```
 
-除了`RawTransactionManager`之外，Java SDK还提供了一个客户端交易管理器`ClientTransactionManager`，它将你的交易签名工作交给你正在连接的PlatON客户端。
+除了`RawTransactionManager`之外，Java SDK还提供了一个客户端交易管理器`ClientTransactionManager`，它将你的交易签名工作交给你正在连接的Bubble客户端。
 此外，还有一个`ReadonlyTransactionManager`，用于只从智能合约中查询数据，而不与它进行交易。
 
 #### gas提供者
@@ -2941,12 +2923,12 @@ Type result = contract.someMethod(<param1>, ...).send();
 
 ### 编译Wasm合约源代码
 
-* 通过`CDT`编译器编译Wasm合约源代码([CDT下载](https://github.com/PlatONnetwork/PlatON-CDT/releases))
+* 通过`CDT`编译器编译Wasm合约源代码([CDT下载](https://github.com/Bubblenetwork/Bubble-CDT/releases))
 
 CDT安装成功以后，可通过如下命令编译Wasm合约源代码：
 
 ```shell
-$ platon-cpp <contract>.cpp
+$ bubble-cpp <contract>.cpp
 ```
 
 编译成功以后，会生成`<contract>.wasm`和`<contract>.abi.json`文件
@@ -2954,7 +2936,7 @@ $ platon-cpp <contract>.cpp
 `wasm`，输出Wasm合约的二进制文件以提供交易请求。
 `abi.json`，详细描述了所有可公开访问的合约方法及其相关参数。`abi`文件也用于生成Wasm智能合约对应的Java包装类。
 
-* 使用`platon-truffle`编译Wasm合约源代码([platon-truffle开发工具安装参考](https://platon-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[platon-truffle开发工具使用手册](https://platon-truffle.readthedocs.io/en/v1.0.0/))
+* 使用`bubble-truffle`编译Wasm合约源代码([bubble-truffle开发工具安装参考](https://bubble-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[bubble-truffle开发工具使用手册](https://bubble-truffle.readthedocs.io/en/v1.0.0/))
 
 ### Wasm智能合约Java包装类
 
@@ -2963,7 +2945,7 @@ Java SDK支持从`abi.json`文件中自动生成Wasm智能合约对应的Java包
 * 通过命令行工具生成Java包装类：
 
 ```shell
-$ platon-web3j wasm generate /path/to/<smart-contract>.wasm /path/to/<smart-contract>.abi.json -o /path/to/src/main/java -p com.your.organisation.name
+$ bubble-web3j wasm generate /path/to/<smart-contract>.wasm /path/to/<smart-contract>.abi.json -o /path/to/src/main/java -p com.your.organisation.name
 ```
 
 * 直接调用Java SDK中的工具类生成Java包装类：
@@ -3023,14 +3005,14 @@ contract.isValid();  // returns false if the contract bytecode does not match wh
 ```
 
 #### 交易管理器
-Java SDK提供了一个交易管理器`TransactionManager`来控制你连接到PlatON客户端的方式。默认采用`RawTransactionManager`。
+Java SDK提供了一个交易管理器`TransactionManager`来控制你连接到Bubble客户端的方式。默认采用`RawTransactionManager`。
 `RawTransactionManager`需要指定链ID。防止一个链的交易被重新广播到另一个链上：
 
 ```java
 TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
 ```
 
-除了`RawTransactionManager`之外，Java SDK还提供了一个客户端交易管理器`ClientTransactionManager`，它将你的交易签名工作交给你正在连接的PlatON客户端。
+除了`RawTransactionManager`之外，Java SDK还提供了一个客户端交易管理器`ClientTransactionManager`，它将你的交易签名工作交给你正在连接的Bubble客户端。
 此外，还有一个`ReadonlyTransactionManager`，用于只从智能合约中查询数据，而不与它进行交易。
 
 #### gas提供者

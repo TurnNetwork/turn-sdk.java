@@ -1,10 +1,10 @@
 #define TESTNET
-#include <platon/platon.hpp>
+#include <bubble/bubble.hpp>
 #include <string>
-using namespace platon;
+using namespace bubble;
 
 
-CONTRACT ContractEmitEvent : public platon::Contract{
+CONTRACT ContractEmitEvent : public bubble::Contract{
    public:
       PLATON_EVENT0(transfer,std::string,std::string,Address)
 
@@ -20,11 +20,11 @@ CONTRACT ContractEmitEvent : public platon::Contract{
       }
 
       CONST Address getAddress(){
-          return platon_caller();
+          return bubble_caller();
       }
 
    private:
-      platon::StorageType<"sstorage"_n, std::string> stringstorage;
+      bubble::StorageType<"sstorage"_n, std::string> stringstorage;
 };
 
 PLATON_DISPATCH(ContractEmitEvent, (init)(setNameAndEmitAddress)(getName)(getAddress))

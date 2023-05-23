@@ -10,5 +10,5 @@ dependencies {
 }
 
 // Build command line library release with target distShadowZip
-mainClassName = 'com.platon.console.Runner'
-applicationName = 'platon-web3j'
+mainClassName = 'com.bubble.console.Runner'
+applicationName = 'bubble-web3j'

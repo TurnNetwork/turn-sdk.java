@@ -17,21 +17,21 @@ Depending on the build tool, use the following methods to add related dependenci
 > Project configuration:
 ```xml
 <repository>
-	<id>platon-public</id>
-	<url>https://sdk.platon.network/nexus/content/groups/public/</url>
+	<id>bubble-public</id>
+	<url>https://sdk.bubble.network/nexus/content/groups/public/</url>
 </repository>
 ```
-NOTE： the latest version is 1.3.0.2
+NOTE： the latest version is 1.0.0
 
 > maven reference:
 ```xml
 <dependency>
-    <groupId>com.platon.sdk</groupId>
+    <groupId>com.bubble.sdk</groupId>
     <artifactId>core</artifactId>
     <version>1.3.0.2</version>
 </dependency>
 ```
-NOTE： the latest version is 1.3.0.2
+NOTE： the latest version is 1.0.0
 
 
 ### gradle
@@ -39,40 +39,22 @@ NOTE： the latest version is 1.3.0.2
 > Project configuration:
 ```
 repositories {
-	maven { url "https://sdk.platon.network/nexus/content/groups/public/" }
+	maven { url "https://sdk.bubble.network/nexus/content/groups/public/" }
 }
 ```
 
 > gradle way of reference:
 ```
-compile "com.platon.sdk:core:1.3.0.2"
+compile "com.bubble.sdk:core:1.3.0.2"
 ```
 
 ## Basic API Usage
-
-### Bech32 Address
-
-* **0x address to bech32 address**
-```java
-NetworkParameters.init(20000L, "atx");
-String hex = "0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818";
-String bech32Address = Bech32.addressEncode(NetworkParameters.getHrp(), hex);
-assertThat(bech32Address, is("atx1f7wp58h65lvphgw2hurl9sa943w0f7qcdcev89"));
-```
-
-* **bech32 address to 0x address**
-```java
-NetworkParameters.init(20000L, "atx");
-String bech32Address = "atx1f7wp58h65lvphgw2hurl9sa943w0f7qcdcev89";
-String hex =  Bech32.addressDecodeHex(bech32Address);
-assertThat(hex, is("0x4f9c1a1efaa7d81ba1cabf07f2c3a5ac5cf4f818"));
-```
 
 ### NetworkParameters
 
 * **initialize network**
 
-> SDK includes PlatON network already. User can initialize custom networks, the latest is the current network.
+> SDK includes Bubble network already. User can initialize custom networks, the latest is the current network.
 
 ```java
 NetworkParameters.init(2000L, "ABC");
@@ -86,17 +68,17 @@ NetworkParameters.init(2000L, "ABC");
 NetworkParameters.selectNetwork(2000L, "ABC");
 ```
 
-> or select PlatON network.
+> or select Bubble network.
 
 ```java
-NetworkParameters.selectPlatON();
+NetworkParameters.selectBubble();
 ```
 
 ### Wallet Related
 
-* **Generate PlatON StandardWallet n=16384 p=1 r=8**
+* **Generate Bubble StandardWallet n=16384 p=1 r=8**
 ```java
-String fileName = WalletUtils.generatePlatONWalletFile(PASSWORD, tempDir);
+String fileName = WalletUtils.generateBubbleWalletFile(PASSWORD, tempDir);
 ```
 
 * **Generate StandardWallet n=262144 p=1 r=8**
@@ -126,9 +108,9 @@ Credentials credentials = Credentials.create("0xXXXXXXXXXXXXXX...");
 ```
 
 
-* **get bech32 address of current network**
+* **get address of current network**
 ```java
-String bech32Address = credentials.getAddress();
+String address = credentials.getAddress();
 ```
 
 ## Basic RPC Interface
@@ -154,8 +136,8 @@ The string in the Web3ClientVersion property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, Web3ClientVersion> request = platonWeb3j.web3ClientVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, Web3ClientVersion> request = bubbleWeb3j.web3ClientVersion();
 String version = request.send().getWeb3ClientVersion();
 ```
 
@@ -178,9 +160,9 @@ The string in the Web3Sha3 attribute is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String date = "";
-Request <?, Web3Sha3> request = platonWeb3j.web3Sha3(date);
+Request <?, Web3Sha3> request = bubbleWeb3j.web3Sha3(date);
 String resDate = request.send().getResult();
 ```
 
@@ -203,8 +185,8 @@ The string in the NetVersion attribute is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetVersion> request = platonWeb3j.netVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetVersion> request = bubbleWeb3j.netVersion();
 String version = request.send().getNetVersion();
 ```
 
@@ -227,8 +209,8 @@ The boolean in the NetListening property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetListening> request = platonWeb3j.netListening();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetListening> request = bubbleWeb3j.netListening();
 boolean req = request.send().isListening();
 ```
 
@@ -251,14 +233,14 @@ The BigInteger in the NetPeerCount property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, NetPeerCount> request = platonWeb3j.netPeerCount();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, NetPeerCount> request = bubbleWeb3j.netPeerCount();
 BigInteger req = request.send().getQuantity();
 ```
 
-### platonProtocolVersion
+### bubbleProtocolVersion
 
-> Returns the current platon protocol version
+> Returns the current bubble protocol version
 
 - **parameters**
 
@@ -267,20 +249,20 @@ BigInteger req = request.send().getQuantity();
 - **return value**
 
 ```java
-Request<?, PlatonProtocolVersion>
+Request<?, BubbleProtocolVersion>
 ```
 
-The String in the PlatonProtocolVersion property is the corresponding stored data
+The String in the BubbleProtocolVersion property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonProtocolVersion> request = platonWeb3j.platonProtocolVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleProtocolVersion> request = bubbleWeb3j.bubbleProtocolVersion();
 String req = request.send().getProtocolVersion();
 ```
 
-### PlatonSyncing
+### BubbleSyncing
 
 Return an object containing data about the synchronization status or false
 
@@ -291,20 +273,20 @@ Return an object containing data about the synchronization status or false
 - **return value**
 
 ```java
-Request<?, PlatonSyncing>
+Request<?, BubbleSyncing>
 ```
 
-The String in the PlatonSyncing property is the corresponding stored data
+The String in the BubbleSyncing property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonSyncing> request = platonWeb3j.platonSyncing();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleSyncing> request = bubbleWeb3j.bubbleSyncing();
 boolean req = request.send().isSyncing();
 ```
 
-### platonGasPrice
+### bubbleGasPrice
 
 > Return current gas price
 
@@ -315,20 +297,20 @@ boolean req = request.send().isSyncing();
 - **return value**
 
 ```java
-Request<?, PlatonGasPrice>
+Request<?, BubbleGasPrice>
 ```
 
-The BigInteger in the PlatonGasPrice property is the corresponding stored data
+The BigInteger in the BubbleGasPrice property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonGasPrice> request = platonWeb3j.platonGasPrice();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleGasPrice> request = bubbleWeb3j.bubbleGasPrice();
 BigInteger req = request.send().getGasPrice();
 ```
 
-### platonAccounts
+### bubbleAccounts
 
 > Return the list of addresses owned by the client
 
@@ -339,20 +321,20 @@ BigInteger req = request.send().getGasPrice();
 - **return value**
 
 ```java
-Request<?, PlatonAccounts>
+Request<?, BubbleAccounts>
 ```
 
-The String array in the PlatonAccounts property is the corresponding stored data
+The String array in the BubbleAccounts property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonAccounts> request = platonWeb3j.platonAccounts();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleAccounts> request = bubbleWeb3j.bubbleAccounts();
 List<String> req = request.send().getAccounts();
 ```
 
-### platonBlockNumber
+### bubbleBlockNumber
 
 > Returns the current highest block height
 
@@ -363,20 +345,20 @@ List<String> req = request.send().getAccounts();
 - **return value**
 
 ```java
-Request<?, PlatonBlockNumber>
+Request<?, BubbleBlockNumber>
 ```
 
-The BigInteger in the PlatonBlockNumber property is the corresponding stored data
+The BigInteger in the BubbleBlockNumber property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonBlockNumber> request = platonWeb3j.platonBlockNumber();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleBlockNumber> request = bubbleWeb3j.bubbleBlockNumber();
 BigInteger req = request.send().getBlockNumber();
 ```
 
-### platonGetBalance
+### bubbleGetBalance
 
 > Back to query address balance
 
@@ -391,21 +373,21 @@ BigInteger req = request.send().getBlockNumber();
 - **return value**
 
 ```java
-Request<?, PlatonGetBalance>
+Request<?, BubbleGetBalance>
 ```
 
-The BigInteger in the PlatonGetBalance property is the corresponding stored data
+The BigInteger in the BubbleGetBalance property is the corresponding stored data
 
 - **Example**
 
 ```java
 Web3j web3j = Web3j.build(new HttpService("http://localhost:6789"));
 String address = "";
-Request<?, PlatonGetBalance> request = web3j.platonGetBalance(address,DefaultBlockParameterName.LATEST);
+Request<?, BubbleGetBalance> request = web3j.bubbleGetBalance(address,DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getBalance();
 ```
 
-### platonGetStorageAt
+### bubbleGetStorageAt
 
 Return value from storage location of given address
 
@@ -421,21 +403,21 @@ Return value from storage location of given address
  **return value**
 
 ```java
-Request<?, PlatonGetStorageAt>
+Request<?, BubbleGetStorageAt>
 ```
 
-The String in the PlatonGetStorageAt property is the corresponding storage data
+The String in the BubbleGetStorageAt property is the corresponding storage data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetStorageAt> request = currentValidWeb3j.platonGetStorageAt(address ,BigInteger.ZERO,DefaultBlockParameterName.LATEST );
+Request <?, BubbleGetStorageAt> request = currentValidWeb3j.bubbleGetStorageAt(address ,BigInteger.ZERO,DefaultBlockParameterName.LATEST );
 String req = request.send().getData();
 ```
 
-### platonGetBlockTransactionCountByHash
+### bubbleGetBlockTransactionCountByHash
 
 > Query the number of transactions in a block according to the block hash
 
@@ -445,21 +427,21 @@ String req = request.send().getData();
 - **return value**
 
 ```java
-Request<?, PlatonGetBlockTransactionCountByHash>
+Request<?, BubbleGetBlockTransactionCountByHash>
 ```
 
-The BigInteger in the PlatonGetBlockTransactionCountByHash property is the corresponding stored data
+The BigInteger in the BubbleGetBlockTransactionCountByHash property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockhash = "";
-Request <?, PlatonGetBlockTransactionCountByHash> request = currentValidWeb3j.platonGetBlockTransactionCountByHash(blockhash);
+Request <?, BubbleGetBlockTransactionCountByHash> request = currentValidWeb3j.bubbleGetBlockTransactionCountByHash(blockhash);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetTransactionCount
+### bubbleGetTransactionCount
 
 > Query the number of transactions sent by the address according to the address
 
@@ -474,21 +456,21 @@ BigInteger req = request.send().getTransactionCount();
 - **return value**
 
 ```java
-Request<?, PlatonGetTransactionCount>
+Request<?, BubbleGetTransactionCount>
 ```
 
-The BigInteger in the PlatonGetTransactionCount property is the corresponding stored data
+The BigInteger in the BubbleGetTransactionCount property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetTransactionCount> request = platonWeb3j.platonGetTransactionCount(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleGetTransactionCount> request = bubbleWeb3j.bubbleGetTransactionCount(address,DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetBlockTransactionCountByNumber
+### bubbleGetBlockTransactionCountByNumber
 
 > Returns the total number of transactions in block high school based on block height
 
@@ -502,20 +484,20 @@ BigInteger req = request.send().getTransactionCount();
 - **return value**
 
 ```java
-Request<?, PlatonGetBlockTransactionCountByNumber>
+Request<?, BubbleGetBlockTransactionCountByNumber>
 ```
 
-The BigInteger in the PlatonGetBlockTransactionCountByNumber property is the corresponding stored data
+The BigInteger in the BubbleGetBlockTransactionCountByNumber property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonGetBlockTransactionCountByNumber> request = platonWeb3j.platonGetBlockTransactionCountByNumber(DefaultBlockParameterName.LATEST);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleGetBlockTransactionCountByNumber> request = bubbleWeb3j.bubbleGetBlockTransactionCountByNumber(DefaultBlockParameterName.LATEST);
 BigInteger req = request.send().getTransactionCount();
 ```
 
-### platonGetCode
+### bubbleGetCode
 
 > Return code for given address
 
@@ -531,21 +513,21 @@ BigInteger req = request.send().getTransactionCount();
 - **return value**
 
 ```java
-Request<?, PlatonGetCode>
+Request<?, BubbleGetCode>
 ```
 
-The String in the PlatonGetCode property is the corresponding stored data
+The String in the BubbleGetCode property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
-Request <?, PlatonGetCode> request = platonWeb3j.platonGetCode(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleGetCode> request = bubbleWeb3j.bubbleGetCode(address,DefaultBlockParameterName.LATEST);
 String req = request.send().getCode();
 ```
 
-### platonSign
+### bubbleSign
 
 > Data Signature
 
@@ -556,24 +538,24 @@ String req = request.send().getCode();
 - **return value**
 
 ```java
-Request<?, PlatonSign>
+Request<?, BubbleSign>
 ```
 
-The String in the PlatonSign property is the corresponding stored data
+The String in the BubbleSign property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String address = "";
 String sha3HashOfDataToSign   = "";
-Request <?, PlatonSign> request = platonWeb3j.platonSign(address,DefaultBlockParameterName.LATEST);
+Request <?, BubbleSign> request = bubbleWeb3j.bubbleSign(address,DefaultBlockParameterName.LATEST);
 String req = request.send().getSignature();
 ```
 
 Note: The address must be unlocked in advance
 
-### platonSendTransaction
+### bubbleSendTransaction
 
 > Send service signing transaction
 
@@ -586,27 +568,27 @@ Note: The address must be unlocked in advance
     - BigInteger: value: transfer amount
     - String: data: data on the chain
     - BigInteger: nonce: transaction unique identifier
-      - Call platonGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
+      - Call bubbleGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
       - Each use of the address nonce +1
 
 - **return value**
 
 ```java
-Request<?, PlatonSendTransaction>
+Request<?, BubbleSendTransaction>
 ```
 
-The String in the PlatonSendTransaction property is the corresponding stored data
+The String in the BubbleSendTransaction property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonSendTransaction(transaction);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleSendTransaction(transaction);
 String req = request.send().getTransactionHash();
 ```
 
-### platonSendRawTransaction
+### bubbleSendRawTransaction
 
 > Send transaction
 
@@ -616,21 +598,21 @@ String req = request.send().getTransactionHash();
 - **return value**
 
 ```java
-Request<?, PlatonSendTransaction>
+Request<?, BubbleSendTransaction>
 ```
 
-The String in the PlatonSendTransaction property is the corresponding stored data
+The String in the BubbleSendTransaction property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String  data = "";
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonSendRawTransaction(data);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleSendRawTransaction(data);
 String req = request.send().getTransactionHash();
 ```
 
-### platonCall
+### bubbleCall
 
 > Execute a message call transaction, the message call transaction is executed directly in the node 旳 VM without the need to execute through blockchain mining
 
@@ -643,27 +625,27 @@ String req = request.send().getTransactionHash();
     - BigInteger: value: transfer amount
     - String: data: data on the chain
     - BigInteger: nonce: transaction unique identifier
-      - Call platonGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
+      - Call bubbleGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
       - Each use of the address nonce +1
 
 - **return value**
 
 ```java
-Request<?, PlatonCall>
+Request<?, BubbleCall>
 ```
 
-The String in the PlatonCall property is the corresponding stored data
+The String in the BubbleCall property is the corresponding stored data
 
 - **Example**
 
 ```javas
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonSendTransaction> request = platonWeb3j.platonCall(transaction);
+Request <?, BubbleSendTransaction> request = bubbleWeb3j.bubbleCall(transaction);
 String req = request.send().getValue();
 ```
 
-### platonEstimateGas
+### bubbleEstimateGas
 
 > Estimating contract method gas usage
 
@@ -676,27 +658,27 @@ String req = request.send().getValue();
     - BigInteger: value: transfer amount
     - String: data: data on the chain
     - BigInteger: nonce: transaction unique identifier
-      - Call platonGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
+      - Call bubbleGetTransactionCount, get the from address as a parameter, and get the total number of sent transactions to that address
       - Each use of the address nonce +1
 
 - **return value**
 
 ```java
-Request<?, PlatonEstimateGas>
+Request<?, BubbleEstimateGas>
 ```
 
-The BigInteger in the PlatonEstimateGas property is the corresponding stored data
+The BigInteger in the BubbleEstimateGas property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 Transaction transaction = new Transaction("from","to",BigInteger.ZERO,BigInteger.ZERO,BigInteger.ZERO,"data ",BigInteger.ONE);
-Request <?, PlatonEstimateGas> request = platonWeb3j.platonEstimateGas(transaction);
+Request <?, BubbleEstimateGas> request = bubbleWeb3j.bubbleEstimateGas(transaction);
 BigInteger req = request.send().getAmountUsed();
 ```
 
-### platonGetBlockByHash
+### bubbleGetBlockByHash
 
 > Query block information based on block hash
 
@@ -709,22 +691,22 @@ BigInteger req = request.send().getAmountUsed();
 - **return value**
 
 ```java
-Request<?, PlatonBlock>
+Request<?, BubbleBlock>
 ```
 
-The block in the PlatonBlock property is the corresponding stored data
+The block in the BubbleBlock property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash  = "";
 
-Request <?, PlatonBlock> request = platonWeb3j.platonGetBlockByHash(blockHash,true);
+Request <?, BubbleBlock> request = bubbleWeb3j.bubbleGetBlockByHash(blockHash,true);
 Block req = request.send().getBlock();
 ```
 
-### platonGetBlockByNumber
+### bubbleGetBlockByNumber
 
 > Query block information based on block height
 
@@ -741,20 +723,20 @@ Block req = request.send().getBlock();
 - **return value**
 
 ```java
-Request<?, PlatonBlock>
+Request<?, BubbleBlock>
 ```
 
-The block in the PlatonBlock property is the corresponding stored data
+The block in the BubbleBlock property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonBlock> request = platonWeb3j.platonGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,true);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleBlock> request = bubbleWeb3j.bubbleGetBlockByNumber(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,true);
 Block req = request.send().getBlock();
 ```
 
-### platonGetTransactionByBlockHashAndIndex
+### bubbleGetTransactionByBlockHashAndIndex
 
 > Query the transaction with the specified serial number in the block according to the block hash
 
@@ -765,21 +747,21 @@ Block req = request.send().getBlock();
 - **return value**
 
 ```java
-Request<?, PlatonTransaction>
+Request<?, BubbleTransaction>
 ```
 
-The transaction in the PlatonTransaction property is the corresponding stored data
+The transaction in the BubbleTransaction property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonTransaction> request = platonWeb3j.platonGetTransactionByHash(blockHash,BigInteger.ZERO);
+Request <?, BubbleTransaction> request = bubbleWeb3j.bubbleGetTransactionByHash(blockHash,BigInteger.ZERO);
 Optional<Transaction> req = request.send().getTransaction();
 ```
 
-### platonGetTransactionByBlockNumberAndIndex
+### bubbleGetTransactionByBlockNumberAndIndex
 
 > Query the transaction with the specified serial number in the block according to the block height
 
@@ -794,21 +776,21 @@ Optional<Transaction> req = request.send().getTransaction();
 - **return value**
 
 ```java
-Request<?, PlatonTransaction>
+Request<?, BubbleTransaction>
 ```
 
-The transaction in the PlatonTransaction property is the corresponding stored data
+The transaction in the BubbleTransaction property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonTransaction> request = platonWeb3j.platonGetTransactionByHash(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
+Request <?, BubbleTransaction> request = bubbleWeb3j.bubbleGetTransactionByHash(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
 Optional<Transaction> req = request.send().getTransaction();
 ```
 
-### platonGetTransactionReceipt
+### bubbleGetTransactionReceipt
 
 > Query transaction receipt based on transaction hash
 
@@ -818,47 +800,47 @@ Optional<Transaction> req = request.send().getTransaction();
 - **return value**
 
 ```java
-Request<?, PlatonGetTransactionReceipt>
+Request<?, BubbleGetTransactionReceipt>
 ```
 
-The transaction in the PlatonGetTransactionReceipt property is the corresponding stored data
+The transaction in the BubbleGetTransactionReceipt property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String blockHash    = "";
-Request <?, PlatonGetTransactionReceipt> request = platonWeb3j.platonGetTransactionReceipt(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
+Request <?, BubbleGetTransactionReceipt> request = bubbleWeb3j.bubbleGetTransactionReceipt(DefaultBlockParameter.valueOf(BigInteger.ZERO) ,BigInteger.ZERO);
 Optional<TransactionReceipt> req = request.send().getTransactionReceipt();
 ```
 
-### platonNewFilter
+### bubbleNewFilter
 
 Create a filter to notify when the client receives a matching whisper message
 
 - **parameters**
-  - PlatonFilter: PlatonFilter:
+  - BubbleFilter: BubbleFilter:
     - SingleTopic:
 
 - **return value**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-The BigInteger in the PlatonFilter property is the corresponding stored data
+The BigInteger in the BubbleFilter property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-org.web3j.protocol.core.methods.request.PlatonFilter filter = new org.web3j.protocol.core.methods.request.PlatonFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+org.web3j.protocol.core.methods.request.BubbleFilter filter = new org.web3j.protocol.core.methods.request.BubbleFilter();
 filter.addSingleTopic("");
-Request <?, PlatonFilter> request = platonWeb3j.platonNewFilter(filter);
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewFilter(filter);
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewBlockFilter
+### bubbleNewBlockFilter
 
 > Create a filter in the node to be notified when new blocks are generated. To check if the status changes
 
@@ -869,20 +851,20 @@ BigInteger req = request.send().getFilterId();
 - **return value**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-The BigInteger in the PlatonFilter property is the corresponding stored data
+The BigInteger in the BubbleFilter property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewBlockFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewBlockFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewPendingTransactionFilter
+### bubbleNewPendingTransactionFilter
 
 > Create a filter in the node to be notified when a pending transaction occurs. To check if the status has changed
 
@@ -893,20 +875,20 @@ BigInteger req = request.send().getFilterId();
 - **return value**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-The BigInteger in the PlatonFilter property is the corresponding stored data
+The BigInteger in the BubbleFilter property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewPendingTransactionFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonNewPendingTransactionFilter
+### bubbleNewPendingTransactionFilter
 
 > Write in filter with specified number. This call is always needed when listening is no longer needed
 
@@ -917,20 +899,20 @@ BigInteger req = request.send().getFilterId();
 - **return value**
 
 ```java
-Request<?, PlatonFilter>
+Request<?, BubbleFilter>
 ```
 
-The BigInteger in the PlatonFilter property is the corresponding stored data
+The BigInteger in the BubbleFilter property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonFilter> request = platonWeb3j.platonNewPendingTransactionFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter();
 BigInteger req = request.send().getFilterId();
 ```
 
-### platonUninstallFilter
+### bubbleUninstallFilter
 
 > Write in filter with specified number. This call is always needed when listening is no longer needed
 
@@ -940,20 +922,20 @@ BigInteger req = request.send().getFilterId();
 - **return value**
 
 ```java
-Request<?, PlatonUninstallFilter>
+Request<?, BubbleUninstallFilter>
 ```
 
-The boolean in the PlatonUninstallFilter attribute is the corresponding stored data
+The boolean in the BubbleUninstallFilter attribute is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonUninstallFilter> request = platonWeb3j.platonNewPendingTransactionFilter(BigInteger.ZERO);
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleUninstallFilter> request = bubbleWeb3j.bubbleNewPendingTransactionFilter(BigInteger.ZERO);
 boolean req = request.send().isUninstalled();
 ```
 
-### platonGetFilterChanges
+### bubbleGetFilterChanges
 
 > Polling the specified filter and returning a newly generated log array since the last poll
 
@@ -963,20 +945,20 @@ boolean req = request.send().isUninstalled();
 - **return value**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-The LogResult array in the PlatonLog property is the corresponding stored data
+The LogResult array in the BubbleLog property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonLog> request = platonWeb3j.platonGetFilterChanges(BigInteger.ZERO);
-List<PlatonLog.LogResult> req = request.send().getLogs();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetFilterChanges(BigInteger.ZERO);
+List<BubbleLog.LogResult> req = request.send().getLogs();
 ```
 
-### platonGetFilterLogs
+### bubbleGetFilterLogs
 
 > Polling the specified filter and returning a newly generated log array since the last poll.
 
@@ -986,46 +968,46 @@ List<PlatonLog.LogResult> req = request.send().getLogs();
 - **return value**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-The LogResult array in the PlatonLog property is the corresponding stored data
+The LogResult array in the BubbleLog property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request <?, PlatonLog> request = platonWeb3j.platonGetFilterLogs(BigInteger.ZERO);
-List<PlatonLog.LogResult> req = request.send().getLogs();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetFilterLogs(BigInteger.ZERO);
+List<BubbleLog.LogResult> req = request.send().getLogs();
 ```
 
-### platonGetLogs
+### bubbleGetLogs
 
 > Return all logs in the specified filter
 
 - **parameters**
-  - PlatonFilter: PlatonFilter:
+  - BubbleFilter: BubbleFilter:
     - SingleTopic:
 
 - **return value**
 
 ```java
-Request<?, PlatonLog>
+Request<?, BubbleLog>
 ```
 
-The BigInteger in the PlatonLog property is the corresponding stored data
+The BigInteger in the BubbleLog property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-org.web3j.protocol.core.methods.request.PlatonFilter filter = new org.web3j.protocol.core.methods.request.PlatonFilter();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+org.web3j.protocol.core.methods.request.BubbleFilter filter = new org.web3j.protocol.core.methods.request.BubbleFilter();
 filter.addSingleTopic("");
-Request <?, PlatonLog> request = platonWeb3j.platonGetLogs(filter);
+Request <?, BubbleLog> request = bubbleWeb3j.bubbleGetLogs(filter);
 List<LogResult> = request.send().getLogs();
 ```
 
-### platonPendingTransactions
+### bubblePendingTransactions
 > Query pending transactions
 
 - **parameters**
@@ -1035,16 +1017,16 @@ List<LogResult> = request.send().getLogs();
 - **return value**
 
 ```java
-Request<?, PlatonPendingTransactions>
+Request<?, BubblePendingTransactions>
 ```
 
-The transactions in the PlatonPendingTransactions property are the corresponding stored data
+The transactions in the BubblePendingTransactions property are the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonPendingTransactions> req = platonWeb3j.platonPendingTx();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubblePendingTransactions> req = bubbleWeb3j.bubblePendingTx();
 EthPendingTransactions res = req.send();
 List<Transaction> transactions = res.getTransactions();
 ```
@@ -1069,11 +1051,11 @@ The boolean in the DbPutString property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
 String stringToStore;
-Request <?, DbPutString> request = platonWeb3j.dbPutString(databaseName,keyName,stringToStore);
+Request <?, DbPutString> request = bubbleWeb3j.dbPutString(databaseName,keyName,stringToStore);
 List<DbPutString> = request.send().valueStored();
 ```
 
@@ -1096,10 +1078,10 @@ The String in the DbGetString property is the corresponding stored data
 **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
-Request <?, DbGetString> request = platonWeb3j.dbGetString(databaseName,keyName);
+Request <?, DbGetString> request = bubbleWeb3j.dbGetString(databaseName,keyName);
 String req  = request.send().getStoredValue();
 ```
 
@@ -1123,11 +1105,11 @@ The boolean in the DbPutHex attribute is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
 String dataToStore;
-Request <?, DbPutHex> request = platonWeb3j.dbPutHex(databaseName,keyName,dataToStore);
+Request <?, DbPutHex> request = bubbleWeb3j.dbPutHex(databaseName,keyName,dataToStore);
 boolean req  = request.send().valueStored();
 ```
 
@@ -1150,14 +1132,14 @@ The String in the DbGetHex property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
 String databaseName;
 String keyName;
-Request <?, DbGetHex> request = platonWeb3j.dbGetHex(databaseName,keyName);
+Request <?, DbGetHex> request = bubbleWeb3j.dbGetHex(databaseName,keyName);
 String req  = request.send().getStoredValue();
 ```
 
-### platonEvidences
+### bubbleEvidences
 
 > Return double sign report data
 
@@ -1288,16 +1270,16 @@ Each type contains multiple evidences, so it is an array structure, and you need
 - **return value**
 
 ```java
-Request<?, PlatonEvidences>
+Request<?, BubbleEvidences>
 ```
 
-The Evidences object in the PlatonEvidences property is the corresponding stored data
+The Evidences object in the BubbleEvidences property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonEvidences> req = platonWeb3j.platonEvidences();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubbleEvidences> req = bubbleWeb3j.bubbleEvidences();
 Evidences evidences = req.send().getEvidences();
 ```
 
@@ -1320,8 +1302,8 @@ The ProgramVersion object in the AdminProgramVersion property is the correspondi
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, AdminProgramVersion> req = platonWeb3j.getProgramVersion();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, AdminProgramVersion> req = bubbleWeb3j.getProgramVersion();
 ProgramVersion programVersion = req.send().getAdminProgramVersion();
 ```
 
@@ -1348,14 +1330,14 @@ The String in the AdminSchnorrNIZKProve property is the corresponding stored dat
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, AdminProgramVersion> req = platonWeb3j.getSchnorrNIZKProve();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, AdminProgramVersion> req = bubbleWeb3j.getSchnorrNIZKProve();
 String res = req.send().getAdminSchnorrNIZKProve();
 ```
 
 ### getEconomicConfig
 
-> Get PlatON parameter configuration
+> Get Bubble parameter configuration
 
 - **parameters**
 
@@ -1372,8 +1354,8 @@ The String in the DebugEconomicConfig property is the corresponding stored data
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, DebugEconomicConfig> req = platonWeb3j.getEconomicConfig();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, DebugEconomicConfig> req = bubbleWeb3j.getEconomicConfig();
 String debugEconomicConfig = req.send().getEconomicConfigStr();
 ```
 
@@ -1387,16 +1369,16 @@ String debugEconomicConfig = req.send().getEconomicConfigStr();
 - **return value**
 
 ```java
-Request<?, PlatonChainId>
+Request<?, BubbleChainId>
 ```
 
-The String in the PlatonChainId property is the corresponding stored data
+The String in the BubbleChainId property is the corresponding stored data
 
 - **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, PlatonChainId> req = platonWeb3j.getChainId();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, BubbleChainId> req = bubbleWeb3j.getChainId();
 BigInteger chainId = req.send().getChainId();
 ```
 
@@ -1419,8 +1401,8 @@ The `WaitSlashingNode` List Object in the `DebugWaitSlashingNodeList` property i
 * **Example**
 
 ```java
-Web3j platonWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
-Request<?, DebugWaitSlashingNodeList> req = platonWeb3j.getWaitSlashingNodeList();
+Web3j bubbleWeb3j = Web3j.build(new HttpService("http://127.0.0.1:6789"));
+Request<?, DebugWaitSlashingNodeList> req = bubbleWeb3j.getWaitSlashingNodeList();
 DebugWaitSlashingNodeList nodeList = req.send();
 ```
 
@@ -1440,7 +1422,7 @@ For the introduction and use of the above system contract, please refer to the f
 
 ### Pledge Related Interface
 
-> Interfaces related to pledge contracts in the PlatON economic model.
+> Interfaces related to pledge contracts in the Bubble economic model.
 
 #### Loading Pledge Contract
 
@@ -1492,12 +1474,12 @@ StakingAmountType stakingAmountType = StakingAmountType.FREE_AMOUNT_TYPE;
 String benifitAddress = "lat1qtp5fqtmudzge9aqt9rnzgdxv729pdq5vug5vt";
 String externalId = "";
 String nodeName = "integration-node1";
-String webSite = "https://www.platon.network/#/";
+String webSite = "https://www.bubble.network/#/";
 String details = "integration-node1-details";
 String blsPubKey = "5ccd6b8c32f2713faa6c9a46e5fb61ad7b7400e53fabcbc56bdc0c16fbfffe09ad6256982c7059e7383a9187ad93a002a7cda7a75d569f591730481a8b91b5fad52ac26ac495522a069686df1061fc184c31771008c1fedfafd50ae794778811";
 BigInteger rewardPer = BigInteger.valueOf(1000L);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.stakingReturnTransaction(new StakingParam.Builder()
+BubbleSendTransaction bubbleSendTransaction = stakingContract.stakingReturnTransaction(new StakingParam.Builder()
         .setNodeId(nodeId)
         .setAmount(stakingAmount.toBigInteger())
         .setStakingAmountType(stakingAmountType)
@@ -1511,7 +1493,7 @@ PlatonSendTransaction platonSendTransaction = stakingContract.stakingReturnTrans
         .setBlsProof(web3j.getSchnorrNIZKProve().send().getAdminSchnorrNIZKProve())
         .setRewardPer(rewardPer)
         .build()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **unStaking**
@@ -1538,8 +1520,8 @@ TransactionResponse
 ```java
 String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050";
 
-PlatonSendTransaction platonSendTransaction = stakingContract.unStakingReturnTransaction(nodeId).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = stakingContract.unStakingReturnTransaction(nodeId).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **updateStaking**
@@ -1574,11 +1556,11 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 String benifitAddress = "lat1qtp5fqtmudzge9aqt9rnzgdxv729pdq5vug5vt";
 String externalId = "";
 String nodeName = "integration-node1-u";
-String webSite = "https://www.platon.network/#/";
+String webSite = "https://www.bubble.network/#/";
 String details = "integration-node1-details-u";
 BigInteger rewardPer = BigInteger.valueOf(1000L);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new UpdateStakingParam.Builder()
+BubbleSendTransaction bubbleSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new UpdateStakingParam.Builder()
         .setBenifitAddress(benifitAddress)
         .setExternalId(externalId)
         .setNodeId(nodeId)
@@ -1587,7 +1569,7 @@ PlatonSendTransaction platonSendTransaction = stakingContract.updateStakingInfoR
         .setDetails(details)
         .setRewardPer(rewardPer)
         .build()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **addStaking**
@@ -1618,8 +1600,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 StakingAmountType stakingAmountType = StakingAmountType.FREE_AMOUNT_TYPE;
 BigDecimal addStakingAmount = Convert.toVon("4000000", Unit.KPVON);
 
-PlatonSendTransaction platonSendTransaction = stakingContract.addStakingReturnTransaction(nodeId, stakingAmountType, addStakingAmount.toBigInteger()).send();
-TransactionResponse baseResponse = stakingContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = stakingContract.addStakingReturnTransaction(nodeId, stakingAmountType, addStakingAmount.toBigInteger()).send();
+TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getStakingInfo**
@@ -1651,7 +1633,7 @@ CallResponse<Node> baseRespons
 
   - String: NodeName The name of the node being pledged(the length is limited, indicating the name of the node)
 
-  - BigInteger: ProgramVersion The real version number of the PlatON process of the pledged node(the interface for obtaining the version number is provided by the governance)
+  - BigInteger: ProgramVersion The real version number of the Bubble process of the pledged node(the interface for obtaining the version number is provided by the governance)
 
   - BigInteger: Released von who initiated a free amount locked period pledged account
 
@@ -1773,7 +1755,7 @@ CallResponse<BigInteger> response = stakingContract.getAvgPackTime().send();
 
 ### Delegation Related Interface
 
-> Principal related contract interface in PlatON economic model
+> Principal related contract interface in Bubble economic model
 
 #### Load Delegate Contract
 
@@ -1814,8 +1796,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 DelegateAmountType delegateAmountType = DelegateAmountType.FREE_AMOUNT_TYPE;
 BigDecimal amot = Counnvert.toVon("500000", Unit.KPVON);
 
-PlatonSendTransaction platonSendTransaction = delegateContract.delegateReturnTransaction(nodeId, delegateAmountType, amount.toBigInteger()).send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.delegateReturnTransaction(nodeId, delegateAmountType, amount.toBigInteger()).send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getRelatedListByDelAddr**
@@ -1928,8 +1910,8 @@ String nodeId = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067
 BigDecimal stakingAmount = Convert.toVon("500000", Unit.KPVON);
 BigInteger stakingBlockNum = new BigInteger("12134");
 
-PlatonSendTransaction platonSendTransaction = delegateContract.unDelegateReturnTransaction(nodeId, stakingBlockNum, stakingAmount.toBigInteger()).send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.unDelegateReturnTransaction(nodeId, stakingBlockNum, stakingAmount.toBigInteger()).send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 
 if(baseResponse.isStatusOk()){
     UnDelegation unDelegation = delegateContract.decodeUnDelegateLogOfNew(baseResponse.getTransactionReceipt());
@@ -1963,8 +1945,8 @@ TransactionResponse
 - **Contract use**
 
 ```java
-PlatonSendTransaction platonSendTransaction = delegateContract.redeemDelegationReturnTransaction().send();
-TransactionResponse baseResponse = delegateContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = delegateContract.redeemDelegationReturnTransaction().send();
+TransactionResponse baseResponse = delegateContract.getTransactionResponse(bubbleSendTransaction).send();
 
 if(baseResponse.isStatusOk()){
     RedeemDelegation redeemDelegation = delegateContract.decodeRedeemDelegateLog(baseResponse.getTransactionReceipt());
@@ -2010,7 +1992,7 @@ CallResponse<DelegationLockInfo> baseResponse = delegateContract.getDelegationLo
 
 ### Reward Related Interface
 
-> Contract-related contract interfaces in the PlatON economic model
+> Contract-related contract interfaces in the Bubble economic model
 
 #### Load Reward Contract
 
@@ -2050,8 +2032,8 @@ TransactionResponse
 * **Contract use**
 
 ```java
-PlatonSendTransaction platonSendTransaction = rewardContract.withdrawDelegateRewardReturnTransaction().send();
-TransactionResponse baseResponse = rewardContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = rewardContract.withdrawDelegateRewardReturnTransaction().send();
+TransactionResponse baseResponse = rewardContract.getTransactionResponse(bubbleSendTransaction).send();
 if(baseResponse.isStatusOk()){
     List<Reward> rewardList = rewardContract.decodeWithdrawDelegateRewardLog(baseResponse.getTransactionReceipt());
 }
@@ -2091,7 +2073,7 @@ CallResponse<List<Reward>> baseResponse = rewardContract.getDelegateReward(deleg
 
 ### Node-related Contracts
 
-> Principal related contract interface in PlatON economic model
+> Principal related contract interface in Bubble economic model
 
 #### Load Node Contract
 
@@ -2137,7 +2119,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger: stakingTxIndex transaction index when pledge is initiated
 
-  - BigInteger: programVersion The real version number of the PlatON process of the pledged node(the interface for obtaining the version number is provided by the governance)
+  - BigInteger: programVersion The real version number of the Bubble process of the pledged node(the interface for obtaining the version number is provided by the governance)
 
   - BigInteger: stakingBlockNum block height when StakingBlockNum initiated pledge
 
@@ -2195,7 +2177,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger: stakingTxIndex transaction index when pledge is initiated
 
-  - BigInteger: programVersion The real version number of the PlatON process of the pledged node(the interface for obtaining the version number is provided by the governance)
+  - BigInteger: programVersion The real version number of the Bubble process of the pledged node(the interface for obtaining the version number is provided by the governance)
 
   - BigInteger: stakingBlockNum block height when StakingBlockNum initiated pledge
 
@@ -2258,7 +2240,7 @@ CallResponse<List<Node>> baseResponse
 
   - BigInteger: stakingTxIndex transaction index when pledge is initiated
 
-  - BigInteger: programVersion The real version number of the PlatON process of the pledged node(the interface for obtaining the version number is provided by the governance)
+  - BigInteger: programVersion The real version number of the Bubble process of the pledged node(the interface for obtaining the version number is provided by the governance)
 
   - BigInteger：status   Candidate status，0: node available，1: node is unavailable ，2:Nodes that have a low block yield but do not meet the removal conditions，4:The node's VON is less than the minimum pledge threshold. 8: The node is reported to have double sign.，16:Node block rate is low and removal conditions are met, 32: node initiates cancellation
 
@@ -2300,7 +2282,7 @@ CallResponse<List<Node>> baseResponse = nodeContract.getCandidateList().send();
 
 ### Governance Related Contracts
 
-> Contract interface related to PlatON governance
+> Contract interface related to Bubble governance
 
 #### Load governance contract
 
@@ -2360,8 +2342,8 @@ TransactionResponse
 ```java
 Proposal proposal = Proposal.createSubmitTextProposalParam(proposalNodeId,"1");
 
-PlatonSendTransaction platonSendTransaction = proposalContract.submitProposalReturnTransaction(proposal).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.submitProposalReturnTransaction(proposal).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **vote**
@@ -2394,8 +2376,8 @@ VoteOption voteOption =  VoteOption.YEAS;
 String proposalID = "";
 String verifier = "77fffc999d9f9403b65009f1eb27bae65774e2d8ea36f7b20a89f82642a5067557430e6edfe5320bb81c3666a19cf4a5172d6533117d7ebcd0f2c82055499050";
 
-PlatonSendTransaction platonSendTransaction = proposalContract.voteReturnTransaction(programVersion, voteOption, proposalID, verifier).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.voteReturnTransaction(programVersion, voteOption, proposalID, verifier).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getProposal**
@@ -2543,8 +2525,8 @@ TransactionResponse
 ProgramVersion programVersion = web3j.getProgramVersion().send().getAdminProgramVersion();
 String verifier = "";
 
-PlatonSendTransaction platonSendTransaction = proposalContract.declareVersionReturnTransaction(programVersion,verifier).send();
-TransactionResponse baseResponse = proposalContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = proposalContract.declareVersionReturnTransaction(programVersion,verifier).send();
+TransactionResponse baseResponse = proposalContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **getActiveVersion**
@@ -2575,7 +2557,7 @@ ProposalUtils.versionInterToStr(baseResponse.getData());
 
 ### Double Sign Report Related Interface
 
-> PlatON report contract related punishment interface
+> Bubble report contract related punishment interface
 
 #### Load Report Contract
 
@@ -2612,9 +2594,9 @@ TransactionResponse
 
 ```java
 String data = ""; // Report evidence
-PlatonSendTransaction platonSendTransaction = slashContract.reportDoubleSignReturnTransaction(DuplicateSignType.PREPARE_BLOCK, data).send();
+BubbleSendTransaction bubbleSendTransaction = slashContract.reportDoubleSignReturnTransaction(DuplicateSignType.PREPARE_BLOCK, data).send();
 
-TransactionResponse baseResponse = slashContract.getTransactionResponse(platonSendTransaction).send();
+TransactionResponse baseResponse = slashContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **CheckDoubleSign**
@@ -2646,7 +2628,7 @@ CallResponse<String> baseResponse = slashContract.checkDoubleSign(DuplicateSignT
 
 ### Lock Related Interface
 
-> PlatON report contract related punishment interface
+> Bubble report contract related punishment interface
 
 #### Loading The Hedging Contract
 
@@ -2688,8 +2670,8 @@ List<RestrictingPlan> restrictingPlans = new ArrayList<>();
 restrictingPlans.add(new RestrictingPlan(BigInteger.valueOf(100), new BigInteger("100000000000000000000")));
 restrictingPlans.add(new RestrictingPlan(BigInteger.valueOf(200), new BigInteger("200000000000000000000")));
 
-PlatonSendTransaction platonSendTransaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(restrictingRecvCredentials.getAddress(), restrictingPlans).send();
-TransactionResponse baseResponse = restrictingPlanContract.getTransactionResponse(platonSendTransaction).send();
+BubbleSendTransaction bubbleSendTransaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(restrictingRecvCredentials.getAddress(), restrictingPlans).send();
+TransactionResponse baseResponse = restrictingPlanContract.getTransactionResponse(bubbleSendTransaction).send();
 ```
 
 ##### **GetRestrictingInfo**
@@ -2732,7 +2714,7 @@ When deploying a Solidity smart contract on the blockchain, it must first be com
 
 ### Compile Solidity Source Code
 
-* Compile solidity source code with `solc` compiler, please download the corresponding solc compiler version according to the compiler version declared in the contract([solc download](https://github.com/PlatONnetwork/solidity/releases))：
+* Compile solidity source code with `solc` compiler, please download the corresponding solc compiler version according to the compiler version declared in the contract([solc download](https://github.com/Bubblenetwork/solidity/releases))：
 
 ```shell
 $ solc <contract>.sol --bin --abi --optimize -o <output-dir>/
@@ -2741,12 +2723,12 @@ $ solc <contract>.sol --bin --abi --optimize -o <output-dir>/
 `bin`，Output a hex-encoded solidity binary file to provide transaction requests.
 `abi`，Output a solidity application binary interface (`ABI`) file, which details all publicly accessible contract methods and their related parameters. The `abi` file is also used to generate the Java wrapper class corresponding to the solidity smart contract.
 
-* Compile solidity source code with `platon-truffle`([platon-truffle development tool installation reference](https://platon-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[platon-truffle Development tool manual](https://platon-truffle.readthedocs.io/en/v1.0.0/))：
+* Compile solidity source code with `bubble-truffle`([bubble-truffle development tool installation reference](https://bubble-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[bubble-truffle Development tool manual](https://bubble-truffle.readthedocs.io/en/v1.0.0/))：
 
-> **step1.** Initialize the project with platon-truffle
+> **step1.** Initialize the project with bubble-truffle
 
 ```
-Initialize a project on the server where platon-truffle is installed。
+Initialize a project on the server where bubble-truffle is installed。
 mkdir HelloWorld
 cd HelloWorld
 truffle init
@@ -2822,17 +2804,17 @@ Put the bytecode attribute in ./build/contracts/HelloWorld.json into the HelloWo
 
 The Java SDK supports automatic generation of Java wrapper classes for Solidity smart contracts from an `abi` file.
 
-* Generate Java wrapper classes via command line tools（[platon-web3j download](https://download.platon.network/platon/sdk/1.1.0/platon-web3j-1.1.0.0.zip)）:
+* Generate Java wrapper classes via command line tools（[bubble-web3j download](https://download.bubble.network/bubble/sdk/1.1.0/bubble-web3j-1.1.0.0.zip)）:
 
 ```shell
-$ platon-web3j solidity generate [--javaTypes|--solidityTypes] /path/to/<smart-contract>.bin /path/to/<smart-contract>.abi -o /path/to/src/main/java -p com.your.organisation.name
+$ bubble-web3j solidity generate [--javaTypes|--solidityTypes] /path/to/<smart-contract>.bin /path/to/<smart-contract>.abi -o /path/to/src/main/java -p com.your.organisation.name
 ```
 
 * Directly call the tool class in the Java SDK to generate a Java wrapper class:
 
 ```java
 // Import console module via maven or gradle
-compile "com.platon.sdk:console:{version}"
+compile "com.bubble.sdk:console:{version}"
 
 String args[] = {"generate", "/path/to/<smart-contract>.bin", "/path/to/<smart-contract>.abi", "-o", "/path/to/src/main/java", "-p" , "com.your.organisation.name"};
 org.web3j.codegen.SolidityFunctionWrapperGenerator.run(args);
@@ -2888,14 +2870,14 @@ contract.isValid();  // returns false if the contract bytecode does not match wh
 ```
 
 #### TransactionManager
-The Java SDK provides a transaction manager `TransactionManager` to control how you connect to the PlatON client. `RawTransactionManager` is used by default.
+The Java SDK provides a transaction manager `TransactionManager` to control how you connect to the Bubble client. `RawTransactionManager` is used by default.
 `RawTransactionManager` needs to specify the chain ID. Prevent transactions on one chain from being rebroadcasted to another chain:
 
 ```java
 TransactionManager transactionManager = new RawTransactionManager(web3j, credentials, 100L);
 ```
 
-In addition to `RawTransactionManager`, the Java SDK also provides a client transaction manager` ClientTransactionManager`, which will hand over your transaction signing work to the PlatON client you are connecting to.
+In addition to `RawTransactionManager`, the Java SDK also provides a client transaction manager` ClientTransactionManager`, which will hand over your transaction signing work to the Bubble client you are connecting to.
 In addition, there is a `ReadonlyTransactionManager`, which is used to query data from the smart contract only and not to trade with it.
 
 #### GasProvider
@@ -2941,12 +2923,12 @@ When deploying a WASM smart contract on the blockchain, it must first be compile
 
 ### Compile WASM Source Code
 
-* Compile WASM contract source code with `CDT` compiler([CDT download](https://github.com/PlatONnetwork/PlatON-CDT/releases))：
+* Compile WASM contract source code with `CDT` compiler([CDT download](https://github.com/Bubblenetwork/Bubble-CDT/releases))：
 
 After the CDT installation is successful, you can compile the WASM contract source code with the following command:
 
 ```shell
-$ platon-cpp <contract>.cpp
+$ bubble-cpp <contract>.cpp
 ```
 
 After successful compilation, `<contract> .wasm` and` <contract> .abi.json` files will be generated.
@@ -2954,7 +2936,7 @@ After successful compilation, `<contract> .wasm` and` <contract> .abi.json` file
 `wasm`，Output binary file of WASM contract to provide transaction request.
 `abi.json`，Which details all publicly accessible contract methods and their related parameters. The `abi` file is also used to generate the Java wrapper class corresponding to the WASM smart contract.
 
-* Compile WASM source code with `platon-truffle`([platon-truffle development tool installation reference](https://platon-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[platon-truffle Development tool manual](https://platon-truffle.readthedocs.io/en/v1.0.0/))
+* Compile WASM source code with `bubble-truffle`([bubble-truffle development tool installation reference](https://bubble-truffle.readthedocs.io/en/v1.0.0/getting-started/installation.html#)|[bubble-truffle Development tool manual](https://bubble-truffle.readthedocs.io/en/v1.0.0/))
 
 ### WASM Smart Contract Java Packaging Class
 
@@ -2963,7 +2945,7 @@ The Java SDK supports automatic generation of Java wrapper classes for WASM smar
 * Generate Java wrapper classes via command line tools:
 
 ```shell
-$ platon-web3j wasm generate /path/to/<smart-contract>.wasm /path/to/<smart-contract>.abi.json -o /path/to/src/main/java -p com.your.organisation.name
+$ bubble-web3j wasm generate /path/to/<smart-contract>.wasm /path/to/<smart-contract>.abi.json -o /path/to/src/main/java -p com.your.organisation.name
 ```
 
 * Directly call the tool class in the Java SDK to generate a Java wrapper class:
@@ -3023,14 +3005,14 @@ contract.isValid();  // returns false if the contract bytecode does not match wh
 ```
 
 #### TransactionManager
-The Java SDK provides a transaction manager `TransactionManager` to control how you connect to the PlatON client. `RawTransactionManager` is used by default.
+The Java SDK provides a transaction manager `TransactionManager` to control how you connect to the Bubble client. `RawTransactionManager` is used by default.
 `RawTransactionManager` needs to specify the chain ID. Prevent transactions on one chain from being rebroadcasted to another chain:
 
 ```java
 TransactionManager transactionManager = new RawTransactionManager(web3j, credentials, 100L);
 ```
 
-In addition to `RawTransactionManager`, the Java SDK also provides a client transaction manager` ClientTransactionManager`, which will hand over your transaction signing work to the PlatON client you are connecting to.
+In addition to `RawTransactionManager`, the Java SDK also provides a client transaction manager` ClientTransactionManager`, which will hand over your transaction signing work to the Bubble client you are connecting to.
 In addition, there is a `ReadonlyTransactionManager`, which is used to query data from the smart contract only and not to trade with it.
 
 #### GasProvider
