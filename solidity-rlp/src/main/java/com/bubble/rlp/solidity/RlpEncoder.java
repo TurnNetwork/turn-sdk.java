@@ -1,5 +1,7 @@
 package com.bubble.rlp.solidity;
 
+import com.bubble.utils.Numeric;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class RlpEncoder {
     }
 
     static byte[] encodeString(RlpString value) {
-        return encode(value.getBytes(), OFFSET_SHORT_STRING);
+        return encode(Numeric.hexStringToByteArray(value.asString()), OFFSET_SHORT_STRING);
     }
 
     private static byte[] toMinimalByteArray(int value) {

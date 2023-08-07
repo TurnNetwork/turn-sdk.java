@@ -1,6 +1,6 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.rlp.solidity.RlpEncoder;
 import com.bubble.rlp.solidity.RlpList;
 import com.bubble.rlp.solidity.RlpString;
@@ -44,7 +44,6 @@ public class TransactionEncoder {
 
     public static Sign.SignatureData createEip155SignatureData(
             Sign.SignatureData signatureData, long chainId) {
-//        byte v = (byte) (signatureData.getV() + (chainId << 1) + 8);
         BigInteger v =  Numeric.toBigInt(signatureData.getV());
         v = v.subtract(BigInteger.valueOf(LOWER_REAL_V));
         v = v.add(BigInteger.valueOf(chainId * 2));
@@ -91,7 +90,7 @@ public class TransactionEncoder {
         if (to != null && to.length() > 0) {
             // addresses that start with zeros should be encoded with the zeros included, not
             // as numeric values
-            result.add(RlpString.create(Bech32.addressDecode(to)));
+            result.add(RlpString.create(to));
         } else {
             result.add(RlpString.create(""));
         }

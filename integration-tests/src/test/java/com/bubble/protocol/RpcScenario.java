@@ -1,6 +1,6 @@
 package com.bubble.protocol;
 
-import com.bubble.contracts.ppos.Scenario;
+import com.bubble.contracts.dpos.Scenario;
 import com.bubble.protocol.core.methods.response.bean.EconomicConfig;
 import com.bubble.protocol.core.methods.response.bean.ProgramVersion;
 import org.junit.Test;

@@ -57,7 +57,7 @@ compile "com.bubble.sdk:core:1.0.0"
 > SDK已经内置Bubble网络。用户还可以初始化其它自定义网络，最后一个初始化的是当前网络.
 
 ```java
-NetworkParameters.init(2000L, "ABC");
+NetworkParameters.init(2000L);
 ```
 
 * **选择当前网络**
@@ -2311,7 +2311,7 @@ ProposalContract proposalContract = ProposalContract.load(web3j, credentials);
   - String：verifier 提交提案的验证人
   - String：pIDID  PIPID
   - BigInteger：newVersion  升级版本
-  - BigInteger：endVotingRounds   投票共识轮数量。说明：假设提交提案的交易，被打包进块时的共识轮序号时round1，则提案投票截止块高，就是round1 + endVotingRounds这个共识轮的第230个块高（假设一个共识轮出块250，ppos揭榜提前20个块高，250，20都是可配置的 ），其中0 < endVotingRounds <= 4840（约为2周，实际论述根据配置可计算），且为整数）
+  - BigInteger：endVotingRounds   投票共识轮数量。说明：假设提交提案的交易，被打包进块时的共识轮序号时round1，则提案投票截止块高，就是round1 + endVotingRounds这个共识轮的第230个块高（假设一个共识轮出块250，dpos揭榜提前20个块高，250，20都是可配置的 ），其中0 < endVotingRounds <= 4840（约为2周，实际论述根据配置可计算），且为整数）
 
 * **参数提案 Proposal.createSubmitParamProposalParam()**
   - String：verifier 提交提案的验证人
@@ -2852,12 +2852,12 @@ YourSmartContract contract = YourSmartContract.deploy(
 
 ```java
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, transactionManager, contractGasProvider);
+        address, web3j, transactionManager, contractGasProvider);
 
 or
 
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, credentials, contractGasProvider);
+        address, web3j, credentials, contractGasProvider);
 ```
 
 #### 智能合约有效性
@@ -2987,12 +2987,12 @@ YourSmartContract contract = YourSmartContract.deploy(
 
 ```java
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, transactionManager, contractGasProvider);
+        address, web3j, transactionManager, contractGasProvider);
 
 or
 
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, credentials, contractGasProvider);
+        address, web3j, credentials, contractGasProvider);
 ```
 
 #### 智能合约有效性

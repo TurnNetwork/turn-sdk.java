@@ -1,6 +1,6 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 import org.bouncycastle.crypto.digests.SHA256Digest;
@@ -108,8 +108,7 @@ public class Wallet {
             int n, int p) {
 
         WalletFile walletFile = new WalletFile();
-        String hexAddress = Keys.getAddress(ecKeyPair);
-        String address = Bech32.addressEncode(NetworkParameters.getHrp(), hexAddress);
+        String address = Keys.getAddress(ecKeyPair);
         walletFile.setAddress(address);
 
         WalletFile.Crypto crypto = new WalletFile.Crypto();

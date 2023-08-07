@@ -1,5 +1,6 @@
 package com.bubble.protocol.core.methods.request;
 
+import com.bubble.parameters.NetworkParameters;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.bubble.utils.Numeric;
 
@@ -25,7 +26,6 @@ public class Transaction {
     private BigInteger value;
     private String data;
     private BigInteger nonce;  // nonce field is not present on eth_call/eth_estimateGas
-
     public Transaction(String from, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
                        String to, BigInteger value, String data) {
         this.from = from;

@@ -20,27 +20,26 @@ cd client-sdk-java/
 <dependency>
     <groupId>com.bubble.sdk</groupId>
     <artifactId>core</artifactId>
-    <version>1.3.0.2</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 or
 
 ```
-compile "com.bubble.sdk:core:1.3.0.2"
+compile "com.bubble.sdk:core:1.0.0"
 ```
 
 * use in project
 
 1. SDK includes Bubble network already. User can initialize custom networks, the latest is the current network.
 ```java
-NetworkParameters.init(2000L, "ABC");  
+NetworkParameters.init(2000L);  
 ```
 
-chain ID 201018 is reserved for Alaya, and chain ID 210425 is reserved for Bubble.
+chain ID 2500 is reserved for Alaya, and chain ID 2500 is reserved for Bubble.
 
 2. user can switch current network if multi-networks have been initialized.
 ```java
 NetworkParameters.selectNetwork(2000L, "ABC");  
 ```
-3. In Alaya, the gas price for submitting a proposal is lower than in Bubble. When initializing a network with the parameter chainId：201018 or hrp:atp, this network will be considered as an Alaya network.

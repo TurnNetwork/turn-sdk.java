@@ -24,7 +24,7 @@ public class WalletTest {
     }
 
     private void testCreate(WalletFile walletFile) throws Exception {
-        assertEquals(walletFile.getAddress(),SampleKeys.BECH32_ADDRESS);
+        assertEquals(walletFile.getAddress(),SampleKeys.HEX_ADDRESS);
     }
 
     @Test

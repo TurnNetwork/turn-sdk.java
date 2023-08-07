@@ -1,14 +1,13 @@
 package com.bubble.protocol.core;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bubble.contracts.ppos.abi.Function;
-import com.bubble.contracts.ppos.dto.resp.Proposal;
-import com.bubble.contracts.ppos.utils.EncoderUtils;
+import com.bubble.contracts.dpos.abi.Function;
+import com.bubble.contracts.dpos.dto.resp.Proposal;
+import com.bubble.contracts.dpos.utils.EncoderUtils;
 import com.bubble.crypto.Credentials;
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.protocol.Web3j;
 import com.bubble.protocol.core.methods.request.Transaction;
-import com.bubble.protocol.core.methods.response.BubbleChainId;
 import com.bubble.protocol.core.methods.response.BubbleEstimateGas;
 import com.bubble.protocol.http.HttpService;
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class GasProviderTest {
     public void testGetProviderWithGasPrice_version1_0_0() throws Exception {
         Web3j web3j = Web3j.build(new HttpService("http://192.168.120.150:6789"));
         String fromAddr = Credentials.create("3a4130e4abb887a296eb38c15bbd83253ab09492a505b10a54b008b7dcc1668").getAddress();
-        String contractAddr = NetworkParameters.getPposContractAddressOfProposal();
+        String contractAddr = NetworkParameters.getDposContractAddressOfProposal();
 
         String nodePublicKey = "8d4967ba21c46d63a352b7bccc47810ebdda7869861fbd341d50bfdeb4318e6e429749a3595102392921e434f8d46720af90d018da3a616f931597f57990ded0";
         String pipId = "111";
@@ -87,7 +86,7 @@ public class GasProviderTest {
     public void testGetProviderWithGasPrice_version1_1_0() throws Exception {
         Web3j web3j = Web3j.build(new HttpService("http://192.168.120.150:6780"));
         String fromAddr = Credentials.create("3a4130e4abb887a296eb38c15bbd83253ab09492a505b10a54b008b7dcc1668").getAddress();
-        String contractAddr = NetworkParameters.getPposContractAddressOfProposal();
+        String contractAddr = NetworkParameters.getDposContractAddressOfProposal();
 
         String nodePublicKey = "0abaf3219f454f3d07b6cbcf3c10b6b4ccf605202868e2043b6f5db12b745df0604ef01ef4cb523adc6d9e14b83a76dd09f862e3fe77205d8ac83df707969b47";
         String pipId = "111";

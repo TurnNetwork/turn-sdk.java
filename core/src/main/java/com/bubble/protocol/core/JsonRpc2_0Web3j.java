@@ -179,7 +179,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleProtocolVersion> bubbleProtocolVersion() {
         return new Request<>(
-                "bubble_protocolVersion",
+                "bub_protocolVersion",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleProtocolVersion.class);
@@ -188,7 +188,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleSyncing> bubbleSyncing() {
         return new Request<>(
-                "bubble_syncing",
+                "bub_syncing",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleSyncing.class);
@@ -197,7 +197,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleGasPrice> bubbleGasPrice() {
         return new Request<>(
-                "bubble_gasPrice",
+                "bub_gasPrice",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleGasPrice.class);
@@ -206,7 +206,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleAccounts> bubbleAccounts() {
         return new Request<>(
-                "bubble_accounts",
+                "bub_accounts",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleAccounts.class);
@@ -215,7 +215,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleBlockNumber> bubbleBlockNumber() {
         return new Request<>(
-                "bubble_blockNumber",
+                "bub_blockNumber",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleBlockNumber.class);
@@ -225,7 +225,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetBalance> bubbleGetBalance(
             String address, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_getBalance",
+                "bub_getBalance",
                 Arrays.asList(address, defaultBlockParameter.getValue()),
                 web3jService,
                 BubbleGetBalance.class);
@@ -235,7 +235,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetStorageAt> bubbleGetStorageAt(
             String address, BigInteger position, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_getStorageAt",
+                "bub_getStorageAt",
                 Arrays.asList(
                         address,
                         Numeric.encodeQuantity(position),
@@ -248,7 +248,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetTransactionCount> bubbleGetTransactionCount(
             String address, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_getTransactionCount",
+                "bub_getTransactionCount",
                 Arrays.asList(address, defaultBlockParameter.getValue()),
                 web3jService,
                 BubbleGetTransactionCount.class);
@@ -258,7 +258,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetBlockTransactionCountByHash> bubbleGetBlockTransactionCountByHash(
             String blockHash) {
         return new Request<>(
-                "bubble_getBlockTransactionCountByHash",
+                "bub_getBlockTransactionCountByHash",
                 Arrays.asList(blockHash),
                 web3jService,
                 BubbleGetBlockTransactionCountByHash.class);
@@ -268,7 +268,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetBlockTransactionCountByNumber> bubbleGetBlockTransactionCountByNumber(
             DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_getBlockTransactionCountByNumber",
+                "bub_getBlockTransactionCountByNumber",
                 Arrays.asList(defaultBlockParameter.getValue()),
                 web3jService,
                 BubbleGetBlockTransactionCountByNumber.class);
@@ -278,7 +278,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleGetCode> bubbleGetCode(
             String address, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_getCode",
+                "bub_getCode",
                 Arrays.asList(address, defaultBlockParameter.getValue()),
                 web3jService,
                 BubbleGetCode.class);
@@ -287,7 +287,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleSign> bubbleSign(String address, String sha3HashOfDataToSign) {
         return new Request<>(
-                "bubble_sign",
+                "bub_sign",
                 Arrays.asList(address, sha3HashOfDataToSign),
                 web3jService,
                 BubbleSign.class);
@@ -298,7 +298,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     bubbleSendTransaction(
             com.bubble.protocol.core.methods.request.Transaction transaction) {
         return new Request<>(
-                "bubble_sendTransaction",
+                "bub_sendTransaction",
                 Arrays.asList(transaction),
                 web3jService,
                 BubbleSendTransaction.class);
@@ -309,7 +309,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     bubbleSendRawTransaction(
             String signedTransactionData) {
         return new Request<>(
-                "bubble_sendRawTransaction",
+                "bub_sendRawTransaction",
                 Arrays.asList(signedTransactionData),
                 web3jService,
                 BubbleSendTransaction.class);
@@ -319,7 +319,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleCall> bubbleCall(
             com.bubble.protocol.core.methods.request.Transaction transaction, DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
-                "bubble_call",
+                "bub_call",
                 Arrays.asList(transaction, defaultBlockParameter),
                 web3jService,
                 BubbleCall.class);
@@ -328,7 +328,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleEstimateGas> bubbleEstimateGas(com.bubble.protocol.core.methods.request.Transaction transaction) {
         return new Request<>(
-                "bubble_estimateGas",
+                "bub_estimateGas",
                 Arrays.asList(transaction),
                 web3jService,
                 BubbleEstimateGas.class);
@@ -338,7 +338,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleBlock> bubbleGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
         return new Request<>(
-                "bubble_getBlockByHash",
+                "bub_getBlockByHash",
                 Arrays.asList(
                         blockHash,
                         returnFullTransactionObjects),
@@ -351,7 +351,7 @@ public class JsonRpc2_0Web3j implements Web3j {
             DefaultBlockParameter defaultBlockParameter,
             boolean returnFullTransactionObjects) {
         return new Request<>(
-                "bubble_getBlockByNumber",
+                "bub_getBlockByNumber",
                 Arrays.asList(
                         defaultBlockParameter.getValue(),
                         returnFullTransactionObjects),
@@ -362,7 +362,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleTransaction> bubbleGetTransactionByHash(String transactionHash) {
         return new Request<>(
-                "bubble_getTransactionByHash",
+                "bub_getTransactionByHash",
                 Arrays.asList(transactionHash),
                 web3jService,
                 BubbleTransaction.class);
@@ -372,7 +372,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubblePendingTransactions> bubblePendingTx() {
         return new Request<>(
-                "bubble_pendingTransactions",
+                "bub_pendingTransactions",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubblePendingTransactions.class);
@@ -383,7 +383,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleTransaction> bubbleGetTransactionByBlockHashAndIndex(
             String blockHash, BigInteger transactionIndex) {
         return new Request<>(
-                "bubble_getTransactionByBlockHashAndIndex",
+                "bub_getTransactionByBlockHashAndIndex",
                 Arrays.asList(
                         blockHash,
                         Numeric.encodeQuantity(transactionIndex)),
@@ -395,7 +395,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleTransaction> bubbleGetTransactionByBlockNumberAndIndex(
             DefaultBlockParameter defaultBlockParameter, BigInteger transactionIndex) {
         return new Request<>(
-                "bubble_getTransactionByBlockNumberAndIndex",
+                "bub_getTransactionByBlockNumberAndIndex",
                 Arrays.asList(
                         defaultBlockParameter.getValue(),
                         Numeric.encodeQuantity(transactionIndex)),
@@ -406,7 +406,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleGetTransactionReceipt> bubbleGetTransactionReceipt(String transactionHash) {
         return new Request<>(
-                "bubble_getTransactionReceipt",
+                "bub_getTransactionReceipt",
                 Arrays.asList(transactionHash),
                 web3jService,
                 BubbleGetTransactionReceipt.class);
@@ -416,7 +416,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleFilter> bubbleNewFilter(
             com.bubble.protocol.core.methods.request.BubbleFilter bubbleFilter) {
         return new Request<>(
-                "bubble_newFilter",
+                "bub_newFilter",
                 Arrays.asList(bubbleFilter),
                 web3jService,
                 BubbleFilter.class);
@@ -425,7 +425,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleFilter> bubbleNewBlockFilter() {
         return new Request<>(
-                "bubble_newBlockFilter",
+                "bub_newBlockFilter",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleFilter.class);
@@ -434,7 +434,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleFilter> bubbleNewPendingTransactionFilter() {
         return new Request<>(
-                "bubble_newPendingTransactionFilter",
+                "bub_newPendingTransactionFilter",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleFilter.class);
@@ -443,7 +443,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleUninstallFilter> bubbleUninstallFilter(BigInteger filterId) {
         return new Request<>(
-                "bubble_uninstallFilter",
+                "bub_uninstallFilter",
                 Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
                 web3jService,
                 BubbleUninstallFilter.class);
@@ -452,7 +452,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleLog> bubbleGetFilterChanges(BigInteger filterId) {
         return new Request<>(
-                "bubble_getFilterChanges",
+                "bub_getFilterChanges",
                 Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
                 web3jService,
                 BubbleLog.class);
@@ -461,7 +461,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleLog> bubbleGetFilterLogs(BigInteger filterId) {
         return new Request<>(
-                "bubble_getFilterLogs",
+                "bub_getFilterLogs",
                 Arrays.asList(Numeric.toHexStringWithPrefixSafe(filterId)),
                 web3jService,
                 BubbleLog.class);
@@ -471,7 +471,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Request<?, BubbleLog> bubbleGetLogs(
             com.bubble.protocol.core.methods.request.BubbleFilter bubbleFilter) {
         return new Request<>(
-                "bubble_getLogs",
+                "bub_getLogs",
                 Arrays.asList(bubbleFilter),
                 web3jService,
                 BubbleLog.class);
@@ -614,11 +614,11 @@ public class JsonRpc2_0Web3j implements Web3j {
     public Observable<NewHeadsNotification> newHeadsNotifications() {
         return web3jService.subscribe(
                 new Request<>(
-                        "bubble_subscribe",
+                        "bub_subscribe",
                         Collections.singletonList("newHeads"),
                         web3jService,
                         BubbleSubscribe.class),
-                "bubble_unsubscribe",
+                "bub_unsubscribe",
                 NewHeadsNotification.class
         );
     }
@@ -631,11 +631,11 @@ public class JsonRpc2_0Web3j implements Web3j {
 
         return web3jService.subscribe(
                 new Request<>(
-                        "bubble_subscribe",
+                        "bub_subscribe",
                         Arrays.asList("logs", params),
                         web3jService,
                         BubbleSubscribe.class),
-                "bubble_unsubscribe",
+                "bub_unsubscribe",
                 LogNotification.class
         );
     }
@@ -754,7 +754,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleEvidences> bubbleEvidences() {
         return new Request<>(
-                "bubble_evidences",
+                "bub_evidences",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleEvidences.class);
@@ -790,7 +790,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleChainId> getChainId() {
         return new Request<>(
-                "bubble_chainId",
+                "bub_chainId",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleChainId.class);
@@ -808,7 +808,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleRawTransaction> bubbleGetRawTransactionByHash(String transactionHash) {
         return new Request<>(
-                "bubble_getRawTransactionByHash",
+                "bub_getRawTransactionByHash",
                 Arrays.asList(transactionHash),
                 web3jService,
                 BubbleRawTransaction.class);
@@ -817,7 +817,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleRawTransaction> bubbleGetRawTransactionByBlockHashAndIndex(String blockHash, String index) {
         return new Request<>(
-                "bubble_getRawTransactionByBlockHashAndIndex",
+                "bub_getRawTransactionByBlockHashAndIndex",
                 Arrays.asList(blockHash,index),
                 web3jService,
                 BubbleRawTransaction.class);
@@ -826,7 +826,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleRawTransaction> bubbleGetRawTransactionByBlockNumberAndIndex(String blockNumber, String index) {
         return new Request<>(
-                "bubble_getRawTransactionByBlockNumberAndIndex",
+                "bub_getRawTransactionByBlockNumberAndIndex",
                 Arrays.asList(blockNumber,index),
                 web3jService,
                 BubbleRawTransaction.class);
@@ -835,7 +835,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleGetAddressHrp> bubbleGetAddressHrp() {
         return new Request<>(
-                "bubble_getAddressHrp",
+                "bub_getAddressHrp",
                 Collections.<String>emptyList(),
                 web3jService,
                 BubbleGetAddressHrp.class);
@@ -844,7 +844,7 @@ public class JsonRpc2_0Web3j implements Web3j {
     @Override
     public Request<?, BubbleSignTransaction> bubbleSignTransaction(com.bubble.protocol.core.methods.request.Transaction transaction) {
         return new Request<>(
-                "bubble_signTransaction",
+                "bub_signTransaction",
                 Arrays.asList(transaction),
                 web3jService,
                 BubbleSignTransaction.class);

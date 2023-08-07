@@ -1,6 +1,5 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 import org.bouncycastle.util.encoders.Hex;
@@ -25,8 +24,7 @@ public class Credentials {
     }
 
     public String getAddress(NetworkParameters networkParameters) {
-        byte[] originBytes= Bech32.addressDecode(address);
-        return Bech32.addressEncode(networkParameters.getHrp(), Hex.toHexString(originBytes));
+        return address;
     }
 
     public String getAddress() {
@@ -34,8 +32,7 @@ public class Credentials {
     }
 
     public static Credentials create(ECKeyPair ecKeyPair) {
-        String hexAddress = Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair));
-        String address = Bech32.addressEncode(NetworkParameters.getHrp(),hexAddress);
+        String address = Numeric.prependHexPrefix(Keys.getAddress(ecKeyPair));
         return new Credentials(ecKeyPair, address);
     }
 

@@ -1,6 +1,5 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 
@@ -39,7 +38,7 @@ public class SignedRawTransaction extends RawTransaction {
         Sign.SignatureData signatureDataV = new Sign.SignatureData(getRealV(v), r, s);
         BigInteger pubKey = Sign.signedMessageToKey(encodedTransaction, signatureDataV);
 
-        return Bech32.addressEncode(NetworkParameters.getHrp(),"0x" + Keys.getAddress(pubKey) );
+        return "0x" + Keys.getAddress(pubKey) ;
     }
 
     public void verify(String from) throws SignatureException {

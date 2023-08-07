@@ -56,7 +56,7 @@ public class WebSocketEventTest {
         web3j.newHeadsNotifications();
 
         verify(webSocketClient).send(matches(
-                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bubble_subscribe\","
+                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bub_subscribe\","
                         + "\"params\":\\[\"newHeads\"],\"id\":[0-9]{1,}}"));
     }
 
@@ -65,7 +65,7 @@ public class WebSocketEventTest {
         web3j.logsNotifications(new ArrayList<>(), new ArrayList<>());
 
         verify(webSocketClient).send(matches(
-                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bubble_subscribe\","
+                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bub_subscribe\","
                         + "\"params\":\\[\"logs\",\\{}],\"id\":[0-9]{1,}}"));
     }
 
@@ -76,7 +76,7 @@ public class WebSocketEventTest {
                 Collections.singletonList("0x2"));
 
         verify(webSocketClient).send(matches(
-                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bubble_subscribe\","
+                "\\{\"jsonrpc\":\"2.0\",\"method\":\"bub_subscribe\","
                         + "\"params\":\\[\"logs\",\\{\"address\":\\[\"0x1\"],"
                         + "\"topics\":\\[\"0x2\"]}],\"id\":[0-9]{1,}}"));
     }

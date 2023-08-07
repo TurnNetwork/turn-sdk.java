@@ -3,7 +3,7 @@ package com.bubble.crypto;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.bubble.bech32.Bech32;
+
 import com.bubble.utils.Files;
 import com.bubble.utils.Numeric;
 import org.bouncycastle.util.encoders.Hex;
@@ -207,7 +207,7 @@ public class WalletUtils {
         }else{
             walletFile.setAddress(Bech32.changeHrp(walletFile.getAddress(), NetworkParameters.getHrp()));
         }*/
-        walletFile.setAddress(Bech32.convertToUnifiedAddress(walletFile.getAddress()));
+        walletFile.setAddress(walletFile.getAddress());
         return walletFile;
     }
 
@@ -267,14 +267,9 @@ public class WalletUtils {
 
     public static boolean isValidAddress(String input) {
         //exclude blank characters and uppercase letters
-        Pattern pattern = Pattern.compile("^[a-z0-9]+$");
-        Matcher matcher = pattern.matcher(input);
-        if(!matcher.find()){
-            return false;
-        }
         String cleanInput;
         try{
-            byte [] bytes = Bech32.addressDecode(input);
+            byte [] bytes = input.getBytes();
             String hexAddress = Hex.toHexString(bytes);
             cleanInput = Numeric.cleanHexPrefix(hexAddress);
         }catch (Exception e){

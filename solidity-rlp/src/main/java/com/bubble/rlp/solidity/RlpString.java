@@ -62,7 +62,7 @@ public class RlpString implements RlpType {
     }
 
     public static RlpString create(String value) {
-        return new RlpString(value.getBytes());
+        return new RlpString(Numeric.hexStringToByteArray(value));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class TransactionDecoderTest {
         BigInteger nonce = BigInteger.ZERO;
         BigInteger gasPrice = BigInteger.ONE;
         BigInteger gasLimit = BigInteger.TEN;
-        String to = "atp1x0yc7gxaw0tmk82n8392xdcl9vcvd677g57j0q";
+        String to = "0xAE58Bf1855dF1e4067ea3308f22335FA16D5644A";
         BigInteger value = BigInteger.valueOf(Long.MAX_VALUE);
         RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
                 nonce, gasPrice, gasLimit, to, value);
@@ -28,7 +28,7 @@ public class TransactionDecoderTest {
         assertEquals(nonce, result.getNonce());
         assertEquals(gasPrice, result.getGasPrice());
         assertEquals(gasLimit, result.getGasLimit());
-        assertEquals(to, Bech32.addressEncode(NetworkParameters.getHrp(), result.getTo()));
+        assertEquals(to, result.getTo());
         assertEquals(value, result.getValue());
         assertEquals("", result.getData());
     }
@@ -57,8 +57,8 @@ public class TransactionDecoderTest {
         assertEquals("", result.getData());
         assertTrue(result instanceof SignedRawTransaction);
         SignedRawTransaction signedResult = (SignedRawTransaction) result;
-        assertEquals(SampleKeys.BECH32_ADDRESS, signedResult.getFrom());
-        signedResult.verify(SampleKeys.BECH32_ADDRESS);
+        assertEquals(SampleKeys.HEX_ADDRESS, signedResult.getFrom());
+        signedResult.verify(SampleKeys.HEX_ADDRESS);
         assertEquals(NetworkParameters.getChainId(), signedResult.getChainId().longValue());
     }
 
@@ -70,6 +70,6 @@ public class TransactionDecoderTest {
         RawTransaction result = TransactionDecoder.decode(hexTransaction);
         SignedRawTransaction signedResult = (SignedRawTransaction) result;
 
-        assertEquals(SampleKeys.BECH32_ADDRESS, signedResult.getFrom());
+        assertEquals(SampleKeys.HEX_ADDRESS, signedResult.getFrom());
     }
 }

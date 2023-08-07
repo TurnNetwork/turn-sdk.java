@@ -27,7 +27,7 @@ public class WalletUtilsTest {
     @Before
     public void setUp() throws Exception {
         tempDir = createTempDir();
-        NetworkParameters.init(2021,"lxy");
+        NetworkParameters.init(2500);
     }
 
     /*@After
@@ -224,11 +224,10 @@ public class WalletUtilsTest {
 
     @Test
     public void testIsValidAddress() {
-        assertTrue(isValidAddress(BECH32_ADDRESS));
+        assertTrue(isValidAddress(HEX_ADDRESS));
 
         assertFalse(isValidAddress(""));
-        assertFalse(isValidAddress(BECH32_ADDRESS + 'a'));
-        assertFalse(isValidAddress(BECH32_ADDRESS.substring(1)));
+        assertFalse(isValidAddress(HEX_ADDRESS.substring(1)));
     }
 
     @Test

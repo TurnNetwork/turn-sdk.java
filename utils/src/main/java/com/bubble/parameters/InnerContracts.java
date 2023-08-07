@@ -1,6 +1,6 @@
 package com.bubble.parameters;
 
-import com.bubble.bech32.Bech32;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,10 +45,6 @@ public class InnerContracts {
     }
 
     public static boolean isInnerAddr(String address){
-        if(InnerAddrList.contains(address)){
-            return true;
-        }else{
-            return InnerAddrList.contains(Bech32.addressDecodeHex(address));
-        }
+        return InnerAddrList.contains(address);
     }
 }

@@ -1,6 +1,6 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.rlp.solidity.RlpDecoder;
 import com.bubble.rlp.solidity.RlpList;
@@ -21,7 +21,7 @@ public class TransactionDecoder {
         BigInteger nonce = ((RlpString) values.getValues().get(0)).asPositiveBigInteger();
         BigInteger gasPrice = ((RlpString) values.getValues().get(1)).asPositiveBigInteger();
         BigInteger gasLimit = ((RlpString) values.getValues().get(2)).asPositiveBigInteger();
-        String to = ((RlpString) values.getValues().get(3)).asString();
+        String to = ((RlpString) values.getValues().get(3)).asString().toUpperCase();
         BigInteger value = ((RlpString) values.getValues().get(4)).asPositiveBigInteger();
         String data = ((RlpString) values.getValues().get(5)).asString();
         if (values.getValues().size() == 6
@@ -44,7 +44,7 @@ public class TransactionDecoder {
                             32);
             final Sign.SignatureData signatureData = new Sign.SignatureData(v, r, s);
             return new SignedRawTransaction(
-                    nonce, gasPrice, gasLimit, Bech32.addressEncode(NetworkParameters.getHrp(),to), value, data, signatureData);
+                    nonce, gasPrice, gasLimit, to, value, data, signatureData);
         }
     }
 

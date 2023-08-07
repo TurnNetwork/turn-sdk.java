@@ -1,7 +1,7 @@
 package com.bubble.abi.solidity.datatypes;
 
 import com.bubble.abi.solidity.datatypes.generated.Uint160;
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 
@@ -20,22 +20,18 @@ public class Address implements Type<String> {
     private final String address;
 
     public Address(Uint160 value) {
-        this(value, NetworkParameters.getHrp());
-    }
-
-    public Address(Uint160 value, String hrp) {
         this.value = value;
-        this.address = Bech32.addressEncode(hrp, Numeric.toHexStringWithPrefixZeroPadded(value.getValue(), LENGTH_IN_HEX));
+        this.address = Numeric.toHexStringWithPrefixZeroPadded(value.getValue(), LENGTH_IN_HEX);;
     }
 
     public Address(BigInteger inputValue) {
         this.value = new Uint160(inputValue);
-        this.address = Bech32.addressEncode(NetworkParameters.getHrp(), Numeric.toHexStringWithPrefixZeroPadded(inputValue, LENGTH_IN_HEX));
+        this.address = Numeric.toHexStringWithPrefixZeroPadded(inputValue, LENGTH_IN_HEX);
     }
 
-    public Address(String bechValue) {
-        this.value = new Uint160(Numeric.toBigInt(Bech32.addressDecodeHex(bechValue)));
-        this.address = bechValue;
+    public Address(String value) {
+        this.value = new Uint160(Numeric.toBigInt(value));
+        this.address = value;
     }
 
     public Uint160 toUint160() {

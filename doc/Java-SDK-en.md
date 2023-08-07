@@ -57,7 +57,7 @@ compile "com.bubble.sdk:core:1.3.0.2"
 > SDK includes Bubble network already. User can initialize custom networks, the latest is the current network.
 
 ```java
-NetworkParameters.init(2000L, "ABC");
+NetworkParameters.init(2000L);
 ```
 
 * **select current network**
@@ -2311,7 +2311,7 @@ ProposalContract proposalContract = ProposalContract.load(web3j, credentials);
   - String：verifier Submit verifier
   - String：pIDID  PIPID
   - BigInteger：newVersion  updated version
-  - BigInteger：endVotingRounds   Number of voting consensus rounds. Explanation: Suppose that the transaction that submitted the proposal is round1 when the consensus round number is packed into the block, the proposal voting deadline block is high, which is round1 + endVotingRounds, the 230th block height of the consensus round (assuming a consensus round produces block 250, ppos Unveiled 20 blocks high in advance, 250 and 20 are configurable), where 0 <endVotingRounds <= 4840 (about 2 weeks, actual discussion can be calculated based on configuration), and is an integer)
+  - BigInteger：endVotingRounds   Number of voting consensus rounds. Explanation: Sudpose that the transaction that submitted the proposal is round1 when the consensus round number is packed into the block, the proposal voting deadline block is high, which is round1 + endVotingRounds, the 230th block height of the consensus round (assuming a consensus round produces block 250, dpos Unveiled 20 blocks high in advance, 250 and 20 are configurable), where 0 <endVotingRounds <= 4840 (about 2 weeks, actual discussion can be calculated based on configuration), and is an integer)
 
 * **ParamProposal Proposal.createSubmitParamProposalParam()**
   - String：verifier Submit verifier
@@ -2852,12 +2852,12 @@ You can also create an instance of the Java wrapper class corresponding to the s
 
 ```java
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, transactionManager, contractGasProvider);
+        address, web3j, transactionManager, contractGasProvider);
 
 or
 
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, credentials, contractGasProvider);
+        address, web3j, credentials, contractGasProvider);
 ```
 
 #### Smart Contract Validity
@@ -2987,12 +2987,12 @@ You can also create an instance of the Java wrapper class corresponding to the s
 
 ```java
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, transactionManager, contractGasProvider);
+        address, web3j, transactionManager, contractGasProvider);
 
 or
 
 YourSmartContract contract = YourSmartContract.load(
-        "<bech32Address>", web3j, credentials, contractGasProvider);
+        address, web3j, credentials, contractGasProvider);
 ```
 
 #### Smart Contract Validity

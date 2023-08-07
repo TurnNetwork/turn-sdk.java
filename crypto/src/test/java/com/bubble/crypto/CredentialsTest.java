@@ -21,7 +21,7 @@ public class CredentialsTest {
     }
 
     private void verify(Credentials credentials) {
-        assertEquals(credentials.getAddress(),SampleKeys.BECH32_ADDRESS);
+        assertEquals(credentials.getAddress(),SampleKeys.HEX_ADDRESS);
         assertThat(credentials.getEcKeyPair(), is(SampleKeys.KEY_PAIR));
     }
 }

@@ -1,6 +1,6 @@
 package com.bubble.crypto;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 
@@ -18,8 +18,6 @@ public class SampleKeys {
             + "a645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76";
     public static final String HEX_ADDRESS = "0xef678007d18427e6022059dbc264f27507cd1ffc";
     public static final String HEX_ADDRESS_NO_PREFIX = Numeric.cleanHexPrefix(HEX_ADDRESS);
-    public static final String BECH32_ADDRESS = Bech32.addressEncode(NetworkParameters.getHrp(),HEX_ADDRESS);
-
     public static final String PASSWORD = "123456";
 
     static final BigInteger PRIVATE_KEY = Numeric.toBigInt(PRIVATE_KEY_STRING);

@@ -1,6 +1,6 @@
 package com.bubble.abi.wasm.datatypes;
 
-import com.bubble.bech32.Bech32;
+
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.utils.Numeric;
 
@@ -16,19 +16,15 @@ public class WasmAddress {
 	public static final int LENGTH_IN_HEX = LENGTH >> 2;
 
 	public WasmAddress(byte[] value) {
-		this(value, NetworkParameters.getHrp());
-	}
-
-	public WasmAddress(byte[] value, String hrp) {
 		this.value = value;
 		this.bigIntValue = Numeric.toBigInt(value);
-		this.address = Bech32.addressEncode(hrp, Numeric.toHexStringWithPrefixZeroPadded(bigIntValue, LENGTH_IN_HEX));
+		this.address = Numeric.toHexStringWithPrefixZeroPadded(bigIntValue, LENGTH_IN_HEX);
 	}
 
-	public WasmAddress(String bechValue) {
-		this.value = Numeric.hexStringToByteArray(Bech32.addressDecodeHex(bechValue));
+	public WasmAddress(String value) {
+		this.value = Numeric.hexStringToByteArray(value);
 		this.bigIntValue = Numeric.toBigInt(value);
-		this.address = bechValue;
+		this.address = value;
 	}
 
 	public WasmAddress(BigInteger value) {
