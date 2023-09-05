@@ -1,8 +1,10 @@
 package com.bubble.rlp.solidity;
 
 import com.bubble.utils.Numeric;
+import org.bouncycastle.util.encoders.Hex;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -62,7 +64,12 @@ public class RlpString implements RlpType {
     }
 
     public static RlpString create(String value) {
-        return new RlpString(Numeric.hexStringToByteArray(value));
+        return new RlpString(value.getBytes());
+    }
+
+    public static RlpString create(Boolean value) {
+        return create(value?(byte)1:(byte)0);
+
     }
 
     @Override

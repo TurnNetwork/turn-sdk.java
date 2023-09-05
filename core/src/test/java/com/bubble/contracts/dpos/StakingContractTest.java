@@ -23,10 +23,10 @@ import java.math.BigInteger;
 
 public class StakingContractTest {
 
-    private String nodeId = "405e2aae5566492aa5da37eb81291e502cee02eac7b03e2734d1a75d3eff78cb7cf849b68f072128e1d5324c150dce4dce06d675ed97f97daca5ce651d9c7303";
-    String blsPubKey = "0b7418f7f774f538b610fa5a70d797fd4b205b7b6e91185119c603b9c4c5236c721af355ca109bedfd06ebadaccfe20ea1bf100b40d4e2f6ad5f5152515d7375d043ff988297d4d6826f1931c74e535fbd4b780d49f45df445caadba585fd810";
-    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.117:7789"));
-    long chainId = 100;
+    private String nodeId = "a5880c17478c173f407e38c997c4defe290779d15dda19a1e1bd5ca66429006cd7007fd8e1590df120f6f590c3aa054bbb29d0ab01b48a52ede6e4bd53c82c12";
+    String blsPubKey = "9163d19f762759512ef2a151dcba80742ef7061efac64120a74fe7ccd618daf8c159edde9524f9d5f76072fee834ab0a6fd59e33da73372ee708a4c568e4a57a504762626cb1ab1e27a59cb5f1494e0cf04a7bf67a70d542d9647bacdf05db17";
+    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.155:18001"));
+    long chainId = 2501;
 
     private Credentials superCredentials;
     private Credentials stakingCredentials;
@@ -59,13 +59,13 @@ public class StakingContractTest {
     public void staking() {
         try {
         	StakingAmountType stakingAmountType = StakingAmountType.FREE_AMOUNT_TYPE;
-        	String benefitAddress = benefitCredentials.getAddress();
+            String benefitAddress = benefitCredentials.getAddress();
         	String externalId = "";
             String nodeName = "node5";
             String webSite = "www.bubble.network";
             String details = "node5-details";
             BigDecimal stakingAmount = Convert.toVon("100000", Unit.KPVON);
-            BigInteger rewardPer = BigInteger.valueOf(1000L);
+            BigInteger rewardPer = BigInteger.valueOf(10000L);
 
             BubbleSendTransaction bubbleSendTransaction = stakingContract.stakingReturnTransaction(new StakingParam.Builder()
                     .setNodeId(nodeId)

@@ -2,7 +2,7 @@ package com.bubble.contracts.dpos;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.bubble.abi.solidity.TypeReference;
+import com.alibaba.fastjson2.TypeReference;
 import com.bubble.abi.solidity.datatypes.Address;
 import com.bubble.abi.solidity.datatypes.Type;
 import com.bubble.abi.solidity.datatypes.generated.Uint256;
@@ -234,8 +234,16 @@ public abstract class BaseContract extends ManagedTransaction {
         return new RemoteCall<>(() -> executeTransactionStep2(ethSendTransaction));
     }
 
+    private RemoteCall<TransactionResponse> executeRemoteCallTransactionStep3(BubbleSendTransaction ethSendTransaction) {
+        return new RemoteCall<>(() -> executeTransactionStep3(ethSendTransaction));
+    }
+
     public RemoteCall<TransactionResponse> getTransactionResponse(BubbleSendTransaction ethSendTransaction){
         return executeRemoteCallTransactionStep2(ethSendTransaction);
+    }
+
+    public RemoteCall<TransactionResponse> getTransactionResponse2(BubbleSendTransaction ethSendTransaction){
+        return executeRemoteCallTransactionStep3(ethSendTransaction);
     }
 
     protected RemoteCall<TransactionResponse> executeRemoteCallTransaction(Function function) {
@@ -323,6 +331,13 @@ public abstract class BaseContract extends ManagedTransaction {
         return getResponseFromTransactionReceipt(receipt);
     }
 
+    private TransactionResponse executeTransactionStep3(BubbleSendTransaction ethSendTransaction) throws IOException, TransactionException {
+
+        TransactionReceipt receipt = getTransactionReceipt(ethSendTransaction);
+
+        return getResponseFromTransactionReceipt2(receipt);
+    }
+
     private TransactionResponse getResponseFromTransactionReceipt(TransactionReceipt transactionReceipt) throws TransactionException {
         List<Log> logs = transactionReceipt.getLogs();
         if(logs==null||logs.isEmpty()){
@@ -338,6 +353,21 @@ public abstract class BaseContract extends ManagedTransaction {
         List<RlpType> rlpList = ((RlpList)(rlp.getValues().get(0))).getValues();
         String decodedStatus = new String(((RlpString)rlpList.get(0)).getBytes());
         int statusCode = Integer.parseInt(decodedStatus);
+
+        TransactionResponse transactionResponse = new TransactionResponse();
+        transactionResponse.setCode(statusCode);
+        transactionResponse.setTransactionReceipt(transactionReceipt);
+
+        return transactionResponse;
+    }
+
+    private TransactionResponse getResponseFromTransactionReceipt2(TransactionReceipt transactionReceipt) throws TransactionException {
+        List<Log> logs = transactionReceipt.getLogs();
+        if(logs==null||logs.isEmpty()){
+            throw new TransactionException("TransactionReceipt logs is empty");
+        }
+
+        int statusCode = Integer.decode(transactionReceipt.getStatus());
 
         TransactionResponse transactionResponse = new TransactionResponse();
         transactionResponse.setCode(statusCode);

@@ -4,7 +4,7 @@ import com.bubble.contracts.dpos.dto.CallResponse;
 import com.bubble.contracts.dpos.dto.TransactionResponse;
 import com.bubble.contracts.dpos.dto.enums.StakingAmountType;
 import com.bubble.contracts.dpos.dto.req.StakingParam;
-import com.bubble.contracts.dpos.dto.req.UpdateStakingParam;
+import com.bubble.contracts.dpos.dto.req.EditCandidateParam;
 import com.bubble.contracts.dpos.dto.resp.Delegation;
 import com.bubble.contracts.dpos.dto.resp.DelegationIdInfo;
 import com.bubble.contracts.dpos.dto.resp.Node;
@@ -149,7 +149,7 @@ public class StakingScenario extends Scenario {
         String details = "integration-node1-details-u";
         BigInteger rewardPer = BigInteger.valueOf(1000L);
 
-        BubbleSendTransaction bubbleSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new UpdateStakingParam.Builder()
+        BubbleSendTransaction bubbleSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new EditCandidateParam.Builder()
                 .setBenifitAddress(benifitAddress)
                 .setExternalId(externalId)
                 .setNodeId(nodeId)

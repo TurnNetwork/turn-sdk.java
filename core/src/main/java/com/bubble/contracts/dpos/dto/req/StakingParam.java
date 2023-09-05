@@ -8,7 +8,11 @@ import com.bubble.abi.solidity.datatypes.generated.Uint16;
 import com.bubble.abi.solidity.datatypes.generated.Uint32;
 import com.bubble.contracts.dpos.dto.enums.StakingAmountType;
 import com.bubble.protocol.core.methods.response.bean.ProgramVersion;
+import com.bubble.rlp.solidity.RlpEncoder;
+import com.bubble.rlp.solidity.RlpList;
+import com.bubble.rlp.solidity.RlpString;
 import com.bubble.utils.Numeric;
+import org.bouncycastle.util.encoders.Hex;
 
 import java.math.BigInteger;
 import java.util.Arrays;

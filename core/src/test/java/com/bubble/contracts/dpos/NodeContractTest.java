@@ -13,7 +13,7 @@ import java.util.List;
 public class NodeContractTest {
 
 	private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.117:6789"));
-    long chainId = 100;
+    long chainId = 2501;
 
     private NodeContract nodeContract;
 

@@ -25,10 +25,10 @@ import java.util.List;
  */
 public class RewardContractTest {
 
-    private String nodeId = "405e2aae5566492aa5da37eb81291e502cee02eac7b03e2734d1a75d3eff78cb7cf849b68f072128e1d5324c150dce4dce06d675ed97f97daca5ce651d9c7303";
+    private String nodeId = "18e5d83b36e1959206b5e582053ae994a00731ccbd7d7ddb6ac7d07eab6ee1d859af91784da6d05336ae04cd96bfc0ae7732818fb2c7ac10e4986a591258239d";
 
-    private long chainId = 100;
-    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.117:7789"));
+    private long chainId = 2501;
+    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.234:1789"));
 
     private Credentials deleteCredentials;
     private Credentials superCredentials;

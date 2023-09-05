@@ -12,8 +12,12 @@ public class InnerContracts {
     private static String SlashingAddr = "0x1000000000000000000000000000000000000004";
     private static String GovAddr = "0x1000000000000000000000000000000000000005";
     private static String DelegateRewardPoolAddr = "0x1000000000000000000000000000000000000006";
+    private static String L2StakingAddr = "0x2000000000000000000000000000000000000001";
+    private static String BubbleAddr = "0x2000000000000000000000000000000000000002";
 
-    private static List<String> InnerAddrList = Arrays.asList(RestrictingAddr, StakingAddr, RewardManagerPoolAddr, SlashingAddr, GovAddr, DelegateRewardPoolAddr);
+    private static String BubbleTokenAddr = "0x1000000000000000000000000000000000000020";
+
+    private static List<String> InnerAddrList = Arrays.asList(RestrictingAddr, StakingAddr, RewardManagerPoolAddr, SlashingAddr, GovAddr, DelegateRewardPoolAddr, L2StakingAddr , BubbleAddr, BubbleTokenAddr);
 
 
     public static String getRestrictingAddr() {
@@ -46,5 +50,17 @@ public class InnerContracts {
 
     public static boolean isInnerAddr(String address){
         return InnerAddrList.contains(address);
+    }
+
+    public static String getL2StakingAddr() {
+        return L2StakingAddr;
+    }
+
+    public static String getBubbleAddr() {
+        return BubbleAddr;
+    }
+
+    public static String getBubbleTokenAddr() {
+        return BubbleTokenAddr;
     }
 }

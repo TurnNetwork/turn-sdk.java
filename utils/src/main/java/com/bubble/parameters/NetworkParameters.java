@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class NetworkParameters {
     protected long chainId;
-
     protected static NetworkParameters currentNetwork;
     private static Map<String, NetworkParameters> networksContainer = new HashMap<>();
     private static String bubbleNetworkKey = String.valueOf(ReservedChainId.Bubble.getChainId());
@@ -33,6 +32,9 @@ public class NetworkParameters {
     protected String dposContractAddressOfProposal;
     //委托收益合约地址
     protected String dposContractAddressOfReward;
+    protected String dposContractAddressOfL2Staking;
+    protected String dposContractAddressOfBubble;
+    protected String dposContractAddressOfBubbleToken;
 
     public static long getChainId() {
         return currentNetwork.chainId;
@@ -44,6 +46,18 @@ public class NetworkParameters {
 
     public static String getDposContractAddressOfStaking() {
         return currentNetwork.dposContractAddressOfStaking;
+    }
+
+    public static String getDposContractAddressOfL2Staking() {
+        return currentNetwork.dposContractAddressOfL2Staking;
+    }
+
+    public static String getDposContractAddressOfBubble() {
+        return currentNetwork.dposContractAddressOfBubble;
+    }
+
+    public static String getDposContractAddressOfBubbleToken() {
+        return currentNetwork.dposContractAddressOfBubbleToken;
     }
 
     public static String getDposContractAddressOfIncentivePool() {
@@ -75,12 +89,15 @@ public class NetworkParameters {
         this.dposContractAddressOfSlash = InnerContracts.getSlashingAddr();
         this.dposContractAddressOfProposal = InnerContracts.getGovAddr();
         this.dposContractAddressOfReward = InnerContracts.getDelegateRewardPoolAddr();
+        this.dposContractAddressOfL2Staking = InnerContracts.getL2StakingAddr();
+        this.dposContractAddressOfBubble = InnerContracts.getBubbleAddr();
+        this.dposContractAddressOfBubbleToken = InnerContracts.getBubbleTokenAddr();
     }
 
 
     /**
      * init a custom network, and this network will be the current one.
-     * @param chainId  chainId, it cannot be same as the Alaya or Bubble network's id.
+     * @param chainId  chainId, it cannot be same as the  Bubble network's id.
      */
     public static void init(long chainId){
         if(networksContainer.containsKey(String.valueOf(chainId))){
@@ -108,7 +125,7 @@ public class NetworkParameters {
     }
 
     public enum ReservedChainId {
-        Bubble(100L);
+        Bubble(2501L);
 
         private final long chainId;
         ReservedChainId(long chainId){

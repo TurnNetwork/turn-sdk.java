@@ -1,12 +1,11 @@
 package com.bubble.contracts.dpos.utils;
 
-import com.bubble.abi.solidity.datatypes.BytesType;
-import com.bubble.abi.solidity.datatypes.IntType;
-import com.bubble.abi.solidity.datatypes.Type;
-import com.bubble.abi.solidity.datatypes.Utf8String;
+import com.alibaba.fastjson.JSONObject;
+import com.bubble.abi.solidity.datatypes.*;
 import com.bubble.contracts.dpos.abi.CustomStaticArray;
 import com.bubble.contracts.dpos.abi.CustomType;
 import com.bubble.contracts.dpos.abi.Function;
+import com.bubble.contracts.dpos.dto.req.AccountAsset;
 import com.bubble.rlp.solidity.RlpEncoder;
 import com.bubble.rlp.solidity.RlpList;
 import com.bubble.rlp.solidity.RlpString;
@@ -37,6 +36,8 @@ public class EncoderUtils {
                     result.add(RlpString.create(RlpEncoder.encode(RlpString.create(((BytesType) parameter).getValue()))));
                 } else if (parameter instanceof Utf8String) {
                     result.add(RlpString.create(RlpEncoder.encode(RlpString.create(((Utf8String) parameter).getValue()))));
+                } else if (parameter instanceof Bool) {
+                    result.add(RlpString.create(RlpEncoder.encode(RlpString.create(((Bool) parameter).getValue()))));
                 } else if (parameter instanceof CustomStaticArray) {
                     result.add(((CustomStaticArray) parameter).getRlpEncodeData());
                 } else if (parameter instanceof CustomType) {

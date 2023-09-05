@@ -1,6 +1,5 @@
 package com.bubble.protocol.core.methods.request;
 
-import com.bubble.parameters.NetworkParameters;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.bubble.utils.Numeric;
 

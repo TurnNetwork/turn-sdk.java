@@ -146,4 +146,85 @@ public class FunctionType {
      * 查询账户在各节点未提取委托奖励
      */
     public static final int GET_DELEGATE_REWARD_FUNC_TYPE = 5100;
+
+    /**
+     * 发起L2质押
+     */
+    public static final int L2_STAKING_FUNC_TYPE = 7000;
+
+    /**
+     * 查询L2质押信息
+     */
+    public static final int GET_L2_STAKING_INFO_FUNC_TYPE = 7103;
+
+    /**
+     * 撤销L2质押(一次性发起全部撤销，多次到账)
+     */
+    public static final int WITHDREW_L2_STAKING_FUNC_TYPE = 7003;
+
+    /**
+     * 修改L2质押信息
+     */
+    public static final int UPDATE_L2_STAKING_INFO_FUNC_TYPE = 7001;
+
+    /**
+     * 增持L2质押
+     */
+    public static final int ADD_L2_STAKING_FUNC_TYPE = 6004;
+
+    /**
+     * 创建子链
+     */
+    public static final int CREATE_BUBBLE_FUNC_TYPE = 8001;
+
+    /**
+     * 释放子链
+     */
+    public static final int RELEASE_BUBBLE_FUNC_TYPE = 8002;
+
+    /**
+     * 发起L2Token质押
+     */
+    public static final int L2_TOKEN_STAKING_FUNC_TYPE = 8003;
+
+    /**
+     * 赎回L2Token质押
+     */
+    public static final int WITHDREW_L2_TOKEN_STAKING_FUNC_TYPE = 8004;
+
+    /**
+     * 结算
+     */
+    public static final int SETTLE_BUBBLE_FUNC_TYPE = 8005;
+
+    /**
+     * 查询子链信息
+     */
+    public static final int GET_BUBBLE_INFO_FUNC_TYPE = 8100;
+
+    /**
+     * 根据子链Hash查询主链Hash
+     */
+    public static final int GET_L1_HASH_BY_L2_HASH_FUNC_TYPE = 8101;
+
+    /**
+     * 获取Bubble网络在主链上的交易hash列表
+     */
+    public static final int GET_BUB_TX_HASH_LIST_FUNC_TYPE = 8102;
+
+    /**
+     * 铸币
+     */
+    public static final int MINT_TOKEN_FUNC_TYPE = 6000;
+
+    /**
+     * 结算
+     */
+    public static final int L2_SETTLE_BUBBLE_FUNC_TYPE = 6001;
+
+    /**
+     * 根据主链Hash获取子链Hash
+     */
+    public static final int GET_L2_HASH_BY_L1_HASH_FUNC_TYPE = 6100;
+
 }

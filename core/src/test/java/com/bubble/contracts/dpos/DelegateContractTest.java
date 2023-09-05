@@ -30,7 +30,7 @@ public class DelegateContractTest {
     private String nodeId = "405e2aae5566492aa5da37eb81291e502cee02eac7b03e2734d1a75d3eff78cb7cf849b68f072128e1d5324c150dce4dce06d675ed97f97daca5ce651d9c7303";
     private BigInteger stakingNb = BigInteger.valueOf(14431L);
     private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.117:7789"));
-    long chainId = 100;
+    long chainId = 2501;
 
     private Credentials deleteCredentials;
     private Credentials superCredentials;

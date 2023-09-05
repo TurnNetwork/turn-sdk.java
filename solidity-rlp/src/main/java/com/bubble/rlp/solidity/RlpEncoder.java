@@ -85,7 +85,7 @@ public class RlpEncoder {
         }
     }
 
-    private static byte[] concat(byte[] b1, byte[] b2) {
+    public static byte[] concat(byte[] b1, byte[] b2) {
         byte[] result = Arrays.copyOf(b1, b1.length + b2.length);
         System.arraycopy(b2, 0, result, b1.length, b2.length);
         return result;

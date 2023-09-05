@@ -8,10 +8,13 @@ import com.bubble.rlp.solidity.RlpType;
 import com.bubble.utils.Bytes;
 import com.bubble.utils.Numeric;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static com.bubble.utils.Numeric.hexStringToByteArray;
 
@@ -24,6 +27,17 @@ public class TransactionEncoder {
 	private static final int CHAIN_ID_INC = 35;
     private static final int LOWER_REAL_V = 27;
 
+    private static final byte[] CHARSET_REV = {
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            15, -1, 10, 17, 21, 20, 26, 30,  7,  5, -1, -1, -1, -1, -1, -1,
+            -1, 29, -1, 24, 13, 25,  9,  8, 23, -1, 18, 22, 31, 27, 19, -1,
+            1,  0,  3, 16, 11, 28, 12, 14,  6,  4,  2, -1, -1, -1, -1, -1,
+            -1, 29, -1, 24, 13, 25,  9,  8, 23, -1, 18, 22, 31, 27, 19, -1,
+            1,  0,  3, 16, 11, 28, 12, 14,  6,  4,  2, -1, -1, -1, -1, -1
+    };
+
     public static byte[] signMessage(RawTransaction rawTransaction, Credentials credentials) {
         byte[] encodedTransaction = encode(rawTransaction);
         Sign.SignatureData signatureData = Sign.signMessage(
@@ -34,11 +48,14 @@ public class TransactionEncoder {
 
     public static byte[] signMessage(
             RawTransaction rawTransaction, long chainId, Credentials credentials) {
-        byte[] encodedTransaction = encode(rawTransaction, chainId);
+        // 把chainId加入byte数组，v值为chainId转byte，rs为空
+        byte[] encodedTransaction = encode(rawTransaction,chainId);
+        // 对交易进行hash，然后私钥签名，生成vrs
         Sign.SignatureData signatureData = Sign.signMessage(
                 encodedTransaction, credentials.getEcKeyPair());
-
+        // 根据chainId覆盖上一步生成的v
         Sign.SignatureData eip155SignatureData = createEip155SignatureData(signatureData, chainId);
+        // 根据vrs再次编码原生交易
         return encode(rawTransaction, eip155SignatureData);
     }
 
@@ -90,7 +107,7 @@ public class TransactionEncoder {
         if (to != null && to.length() > 0) {
             // addresses that start with zeros should be encoded with the zeros included, not
             // as numeric values
-            result.add(RlpString.create(to));
+            result.add(RlpString.create(Numeric.hexStringToByteArray(to)));
         } else {
             result.add(RlpString.create(""));
         }
