@@ -39,6 +39,11 @@ public class L2StakingParam implements Cloneable {
     private String electronURI;
 
     /**
+     * 节点的RPC服务地址，格式如：http://IP:Port，如果是运营节点，则不可留空
+     */
+    private String rpcURI;
+
+    /**
      * 节点之间建立p2p连接的信息，格式：enode://nodeid@ip:port
      */
     private String p2pURI;
@@ -156,6 +161,14 @@ public class L2StakingParam implements Cloneable {
         this.p2pURI = p2pURI;
     }
 
+    public String getRpcURI() {
+        return rpcURI;
+    }
+
+    public void setRpcURI(String rpcURI) {
+        this.rpcURI = rpcURI;
+    }
+
     public L2StakingParam(Builder builder) {
         this.nodeId = builder.nodeId;
         this.amount = builder.amount;
@@ -167,6 +180,7 @@ public class L2StakingParam implements Cloneable {
         this.blsProof = builder.blsProof;
         this.electronURI = builder.electronURI;
         this.p2pURI = builder.p2pURI;
+        this.rpcURI = builder.rpcURI;
         this.isOperator = builder.isOperator;
 
     }
@@ -178,6 +192,7 @@ public class L2StakingParam implements Cloneable {
                 , name == null ? null : new Utf8String(name)
                 , details == null ? null : new Utf8String(details)
                 , electronURI == null ? null : new Utf8String(electronURI)
+                , rpcURI == null ? null : new Utf8String(rpcURI)
                 , p2pURI == null ? null : new Utf8String(p2pURI)
                 , new Uint32(processVersion.getProgramVersion())
                 , new BytesType(Numeric.hexStringToByteArray(processVersion.getProgramVersionSign()))
@@ -208,6 +223,8 @@ public class L2StakingParam implements Cloneable {
         private String name;
 
         private String electronURI;
+
+        private String rpcURI;
 
         private String p2pURI;
 
@@ -272,6 +289,11 @@ public class L2StakingParam implements Cloneable {
 
         public Builder setP2pURI(String p2pURI) {
             this.p2pURI = p2pURI;
+            return this;
+        }
+
+        public Builder setRpcURI(String rpcURI) {
+            this.rpcURI = rpcURI;
             return this;
         }
 
