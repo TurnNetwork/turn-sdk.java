@@ -17,12 +17,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.math.BigInteger;
 
-/**
- * @Author liushuyu
- * @Date 2021/6/4 11:01
- * @Version
- * @Desc
- */
+
 public class GasProviderTest {
 
     @Before

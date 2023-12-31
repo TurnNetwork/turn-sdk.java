@@ -25,10 +25,10 @@ import java.math.BigDecimal;
 
 public class StakingL2ContractTest {
 
-    private String nodeId = "a5880c17478c173f407e38c997c4defe290779d15dda19a1e1bd5ca66429006cd7007fd8e1590df120f6f590c3aa054bbb29d0ab01b48a52ede6e4bd53c82c12";
-    String blsPubKey = "64dec26c755c0b08f7e7e80b0e299cf273e2a8ee26540fa16ca9287c2d9a7076f6d9971bf5974b2b8e9e86858a27130f570a682dcd12074a35051d8a1ab86934efbddffa1e9c110851447c0ea849d90bd808d9f683786fbbfb184fc7dba4aa13";
-    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.155:18001"));
-    long chainId = 2501;
+    private String nodeId = "33e32007e758177c712676b05c11801e7bee997d4509f73ad9f3c536d746e8fa26761e626152c1a42d186a9a745f72b52f46260420bdac4127f0314007c49998";
+    String blsPubKey = "9163d19f762759512ef2a151dcba80742ef7061efac64120a74fe7ccd618daf8c159edde9524f9d5f76072fee834ab0a6fd59e33da73372ee708a4c568e4a57a504762626cb1ab1e27a59cb5f1494e0cf04a7bf67a70d542d9647bacdf05db17";
+    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.155:18001/"));
+    long chainId = 100;
 
     private Credentials superCredentials;
     private Credentials stakingCredentials;
@@ -43,7 +43,7 @@ public class StakingL2ContractTest {
     	//System.out.println("superCredentials balance="+ web3j.bubbleGetBalance(superCredentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance());
 
     	stakingCredentials = Credentials.create("daf9e8a3b0bd17a28abbfb5a8e9e9c052734a754c7a707f9bf27cd1b4a0d31b5");
-    	//System.out.println("stakingCredentials balance="+ web3j.bubbleGetBalance(stakingCredentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance());
+    	System.out.println("stakingCredentials balance="+ web3j.bubbleGetBalance(stakingCredentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance());
 
     	benefitCredentials = Credentials.create("daf9e8a3b0bd17a28abbfb5a8e9e9c052734a754c7a707f9bf27cd1b4a0d31b5");
     	//System.out.println("benefitCredentials balance="+ web3j.bubbleGetBalance(benefitCredentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance());
@@ -63,6 +63,7 @@ public class StakingL2ContractTest {
         	String benefitAddress = benefitCredentials.getAddress();
         	String p2pURI = "enode://"+nodeId+"@ip:port127.0.0.1:8080";
             String electronURI = "http://127.0.0.1:18080";
+            String rpcUri = "http://127.0.0.1:28080";
             String name = "node123";
             String details = "node123-details";
             Boolean isOperator = true;
@@ -76,9 +77,9 @@ public class StakingL2ContractTest {
                     .setDetails(details)
                     .setBlsPubKey(blsPubKey)
                     .setProcessVersion(web3j.getProgramVersion().send().getAdminProgramVersion())
-                    .setBlsProof(web3j.getSchnorrNIZKProve().send().getAdminSchnorrNIZKProve())
                     .setElectronURI(electronURI)
                     .setP2pURI(p2pURI)
+                    .setRpcURI(rpcUri)
                     .setOperator(isOperator)
                     .build()).send();
 
@@ -106,12 +107,14 @@ public class StakingL2ContractTest {
         	String benefitAddress = benefitCredentials.getAddress();
             String nodeName = "node123";
             String detail = "node123-details";
+            String rpcURI = "https://www.turnnetwork.com";
 
             BubbleSendTransaction bubbleSendTransaction = stakingContract.updateStakingInfoReturnTransaction(new EditCandidateParam.Builder()
             		.setBeneficiary(benefitAddress)
             		.setNodeId(nodeId)
             		.setName(nodeName)
             		.setDetail(detail)
+                    .setRpcURI(rpcURI)
             		.build()).send();
 
             TransactionResponse baseResponse = stakingContract.getTransactionResponse(bubbleSendTransaction).send();

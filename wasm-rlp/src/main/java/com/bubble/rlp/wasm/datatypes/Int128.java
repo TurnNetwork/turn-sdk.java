@@ -5,8 +5,6 @@ import java.math.BigInteger;
 /**
  * 
  * Signed integer wrapper class
- * 
- * @author oliver
  *
  */
 public class Int128 extends Int {

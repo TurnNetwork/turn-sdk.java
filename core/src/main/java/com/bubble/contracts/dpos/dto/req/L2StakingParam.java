@@ -62,11 +62,6 @@ public class L2StakingParam implements Cloneable {
     private String blsPubKey;
 
     /**
-     * bls的证明
-     */
-    private String blsProof;
-
-    /**
      * 节点是否运营节点，如果指定为True，则必须要填写RPC字段
      */
     private Boolean isOperator;
@@ -113,13 +108,6 @@ public class L2StakingParam implements Cloneable {
         this.blsPubKey = blsPubKey;
     }
 
-    public String getBlsProof() {
-        return blsProof;
-    }
-
-    public void setBlsProof(String blsProof) {
-        this.blsProof = blsProof;
-    }
 
     public String getBeneficiary() {
         return beneficiary;
@@ -177,7 +165,6 @@ public class L2StakingParam implements Cloneable {
         this.details = builder.details;
         this.processVersion = builder.processVersion;
         this.blsPubKey = builder.blsPubKey;
-        this.blsProof = builder.blsProof;
         this.electronURI = builder.electronURI;
         this.p2pURI = builder.p2pURI;
         this.rpcURI = builder.rpcURI;
@@ -195,9 +182,7 @@ public class L2StakingParam implements Cloneable {
                 , rpcURI == null ? null : new Utf8String(rpcURI)
                 , p2pURI == null ? null : new Utf8String(p2pURI)
                 , new Uint32(processVersion.getProgramVersion())
-                , new BytesType(Numeric.hexStringToByteArray(processVersion.getProgramVersionSign()))
                 , new BytesType(Numeric.hexStringToByteArray(blsPubKey))
-                , new BytesType(Numeric.hexStringToByteArray(blsProof))
                 , new Bool(isOperator)
         );
     }

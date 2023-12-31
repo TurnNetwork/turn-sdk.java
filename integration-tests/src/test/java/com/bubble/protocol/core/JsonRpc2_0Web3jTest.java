@@ -13,12 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-/**
- * @Author liushuyu
- * @Date 2021/7/6 15:52
- * @Version
- * @Desc
- */
 public class JsonRpc2_0Web3jTest {
 
     private static final Logger logger = LoggerFactory.getLogger("JsonRpc2_0Web3jTest");

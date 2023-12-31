@@ -125,7 +125,7 @@ public class NetworkParameters {
     }
 
     public enum ReservedChainId {
-        Bubble(2501L);
+        Bubble(100L);
 
         private final long chainId;
         ReservedChainId(long chainId){

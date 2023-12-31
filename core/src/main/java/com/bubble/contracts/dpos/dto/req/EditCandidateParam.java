@@ -28,12 +28,17 @@ public class EditCandidateParam {
      * 节点的描述(有长度限制，表示该节点的描述)
      */
     private String detail;
+    /**
+     * 微节点rpc地址
+     */
+    private String rpcURI;
 
     public EditCandidateParam(Builder builder) {
         this.nodeId = builder.nodeId;
         this.beneficiary = builder.beneficiary;
         this.name = builder.name;
         this.detail = builder.detail;
+        this.rpcURI = builder.rpcURI;
     }
 
     @Override
@@ -43,6 +48,7 @@ public class EditCandidateParam {
                 ", beneficiary='" + beneficiary + '\'' +
                 ", name='" + name + '\'' +
                 ", detail='" + detail + '\'' +
+                ", rpcURI='" + rpcURI + '\'' +
                 '}';
     }
 
@@ -51,7 +57,8 @@ public class EditCandidateParam {
                 new BytesType(Numeric.hexStringToByteArray(nodeId)),
                 beneficiary == null ? null:new BytesType(Numeric.hexStringToByteArray(beneficiary)),
                 name == null ? null : new Utf8String(name),
-                detail == null ? null : new Utf8String(detail));
+                detail == null ? null : new Utf8String(detail),
+                rpcURI == null ? null : new Utf8String(rpcURI));
     }
 
 
@@ -60,6 +67,7 @@ public class EditCandidateParam {
         private String beneficiary;
         private String name;
         private String detail;
+        private String rpcURI;
 
         public Builder setNodeId(String nodeId) {
             this.nodeId = nodeId;
@@ -78,6 +86,11 @@ public class EditCandidateParam {
 
         public Builder setDetail(String detail) {
             this.detail = detail;
+            return this;
+        }
+
+        public Builder setRpcURI(String rpcURI) {
+            this.rpcURI = rpcURI;
             return this;
         }
 

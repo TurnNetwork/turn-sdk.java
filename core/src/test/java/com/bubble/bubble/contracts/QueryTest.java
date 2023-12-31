@@ -21,11 +21,7 @@
 //import java.util.Optional;
 //import java.util.concurrent.TimeUnit;
 //
-///**
-// * @Auther: Chendongming
-// * @Date: 2019/6/3 10:27
-// * @Description:
-// */
+
 //public class QueryTest {
 //    private Logger logger = LoggerFactory.getLogger(MultisigContractTest.class);
 //

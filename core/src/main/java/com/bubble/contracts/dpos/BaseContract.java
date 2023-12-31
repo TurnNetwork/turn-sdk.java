@@ -52,10 +52,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-/**
- * 内置合约基类
- * @author chendai
- */
 public abstract class BaseContract extends ManagedTransaction {
 
     private static final Logger log = LoggerFactory.getLogger(BaseContract.class);

@@ -60,24 +60,6 @@ public class StakingL2Info {
     @JSONField(name = "StakingBlockNum")
     private BigInteger stakingBlockNum;
 
-    /**
-     * 当前节点总共质押的token数量
-     */
-    /*@JSONField(name = "Shares")
-    private BigInteger shares;*/
-
-    /**
-     * 发起质押账户的自由金额的锁定期质押的token数量
-     */
-    /*@JSONField(name = "Released")
-    private BigInteger released;*/
-
-    /**
-     * 发起质押账户的自由金额的犹豫期质押的token数量
-     */
-//    @JSONField(name = "ReleasedHes")
-//    private BigInteger releasedHes;
-
     @JSONField(name = "Name")
     private String name;
     @JSONField(name = "Detail")
@@ -86,6 +68,17 @@ public class StakingL2Info {
     private String electronURI;
     @JSONField(name = "P2PURI")
     private String p2PUri;
+
+    public String getRpcUri() {
+        return rpcUri;
+    }
+
+    public void setRpcUri(String rpcUri) {
+        this.rpcUri = rpcUri;
+    }
+
+    @JSONField(name = "RPCURI")
+    private String rpcUri;
 
     public String getName() {
         return name;

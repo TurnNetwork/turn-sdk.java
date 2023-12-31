@@ -1,31 +1,22 @@
 package com.bubble.contracts.dpos;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bubble.contracts.dpos.dto.CallResponse;
 import com.bubble.contracts.dpos.dto.TransactionResponse;
-import com.bubble.contracts.dpos.dto.enums.StakingAmountType;
 import com.bubble.contracts.dpos.dto.req.*;
-import com.bubble.contracts.dpos.dto.resp.Node;
 import com.bubble.crypto.Credentials;
 import com.bubble.parameters.NetworkParameters;
 import com.bubble.protocol.Web3j;
-import com.bubble.protocol.core.DefaultBlockParameterName;
 import com.bubble.protocol.core.methods.response.BubbleSendTransaction;
 import com.bubble.protocol.http.HttpService;
-import com.bubble.tx.Transfer;
-import com.bubble.utils.Convert;
-import com.bubble.utils.Convert.Unit;
-import com.bubble.utils.Numeric;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class BubbleContractTest {
 
-    private Web3j web3j = Web3j.build(new HttpService("http://192.168.31.155:18001"));
-    long chainId = 2501;
+    private Web3j web3j = Web3j.build(new HttpService("http://8.210.9.83:6789/"));
+    long chainId = 2509;
     private Credentials stakingCredentials;
     private BubbleContract bubbleContract;
 
@@ -98,7 +89,8 @@ public class BubbleContractTest {
     @Test
     public void getBubbleInfo() {
     	try {
-            BigInteger bubbleId= BigInteger.valueOf(3547106016L);
+            System.out.println(web3j.bubbleBlockNumber().send().getBlockNumber());
+            BigInteger bubbleId= BigInteger.valueOf(4097752862L);
             System.out.println(bubbleId);
             CallResponse<String> send = bubbleContract.getBubbleInfo(bubbleId).send();
             System.out.println(send);

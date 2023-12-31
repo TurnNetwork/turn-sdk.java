@@ -11,8 +11,7 @@ import java.io.File;
 
 /**
  * Test Java wrapper source code generator for Solidity ABI format.
- * 
- * @author lhdeng
+
  *
  */
 public class RunnerTest extends TempFileProvider {

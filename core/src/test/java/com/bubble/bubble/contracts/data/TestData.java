@@ -10,11 +10,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.List;
 
-/**
- * @Auther: Chendongming
- * @Date: 2019/4/16 15:16
- * @Description: 测试数据统一配置
- */
+
 public class TestData {
     private static Logger logger = LoggerFactory.getLogger(TestData.class);
 

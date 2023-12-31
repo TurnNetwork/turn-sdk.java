@@ -79,6 +79,7 @@ public class RlpEncoder {
         } else {
             byte[] result = new byte[0];
             for (RlpType entry:values) {
+                System.out.println(Numeric.toHexString(encode(entry)));
                 result = concat(result, encode(entry));
             }
             return encode(result, OFFSET_SHORT_LIST);

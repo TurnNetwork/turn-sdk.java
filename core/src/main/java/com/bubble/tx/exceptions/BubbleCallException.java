@@ -2,12 +2,6 @@ package com.bubble.tx.exceptions;
 
 import com.bubble.protocol.core.Response;
 
-/**
- * @Author liushuyu
- * @Date 2021/5/12 16:46
- * @Version
- * @Desc
- */
 public class BubbleCallException extends RuntimeException {
 
     private Response response;

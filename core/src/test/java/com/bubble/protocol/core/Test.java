@@ -34,8 +34,8 @@ import java.util.Collections;
 
 public class Test {
 
-    public void test(String[] args) {
-        Web3j  web3j = Web3j.build(new HttpService("http://192.168.31.117:7789"));
+    public static void main(String[] args) {
+        Web3j  web3j = Web3j.build(new HttpService("http://10.32.165.85:6789"));
         try {
             BigInteger blockNumber = web3j.bubbleBlockNumber().send().getBlockNumber();
             System.out.println(blockNumber);
@@ -55,11 +55,19 @@ public class Test {
         }
     }
 
-    public void test2(String[] args) {
-        Web3j  web3j = Web3j.build(new HttpService("http://192.168.31.117:7789"));
+    public void main1(String[] args) {
+        Web3j  web3j = Web3j.build(new HttpService("http://8.210.9.83:6789/"));
         try {
-            BubbleBlock.Block block = web3j.bubbleGetBlockByHash("0x5e2eee540b421ac955d320f0fb265308f301fe4fa189b153845a82194c1af06a", true).send().getBlock();
-            System.out.println(JSONObject.toJSON(block));
+            /*BubbleBlock.Block block = web3j.bubbleGetBlockByHash("", true).send().getBlock();
+            System.out.println(JSONObject.toJSON(block));*/
+            /*com.bubble.protocol.core.methods.response.Transaction transaction = web3j.bubbleGetTransactionByHash("0xd7c94c2847f93e9ab38ab1cccd54887ca3efeca3242d28f74e971188f572cc37").send().getTransaction().get();
+            System.out.println(JSONObject.toJSON(transaction));
+            BubbleBlock.Block block = web3j.bubbleGetBlockByNumber(new DefaultBlockParameterNumber(8400), true).send().getBlock();
+            System.out.println(JSONObject.toJSON(block));*/
+            /*BubbleRawTransaction send = web3j.bubbleGetRawTransactionByHash("0xd7c94c2847f93e9ab38ab1cccd54887ca3efeca3242d28f74e971188f572cc37").send();
+            System.out.println(JSONObject.toJSON(send));*/
+            TransactionReceipt transactionReceipt = web3j.bubbleGetTransactionReceipt("0xc4e2e6f5c391444d429a2f0ece9abb5cdc579f952b9485485e5b1e423f196521").send().getTransactionReceipt().get();
+            System.out.println(JSONObject.toJSON(transactionReceipt));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -260,7 +268,7 @@ public class Test {
     }
 
 
-    public static void main(String[] args) {
+    public static void test19(String[] args) {
         Web3j  web3j = Web3j.build(new HttpService("http://192.168.31.117:6789"));
         try {
             BubbleEvidences send = web3j.bubbleEvidences().send();

@@ -1,5 +1,4 @@
 #define TESTNET
-// Author: zjsunzone
 #include <bubble/bubble.hpp>
 #include <string>
 using namespace bubble;

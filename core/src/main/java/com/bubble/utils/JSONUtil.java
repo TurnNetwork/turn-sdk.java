@@ -10,10 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author ziv
- * date On 2019/4/6
- */
 public class JSONUtil {
 
     private static SerializeConfig serializeConfig;

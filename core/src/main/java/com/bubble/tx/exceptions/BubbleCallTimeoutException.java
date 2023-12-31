@@ -4,12 +4,6 @@ import com.bubble.protocol.core.Response;
 
 import java.io.IOException;
 
-/**
- * @Author liushuyu
- * @Date 2021/5/12 16:46
- * @Version
- * @Desc
- */
 public class BubbleCallTimeoutException extends IOException {
 
     private Response response;
