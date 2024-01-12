@@ -1,0 +1,19 @@
+rootProject.name = 'bubble-sdk-java'
+
+include 'integration-tests'
+include 'console'
+include 'codegen'
+include 'core'
+include 'solidity-abi'
+include 'wasm-abi'
+include 'crypto'
+include 'solidity-rlp'
+include 'wasm-rlp'
+include 'utils'
+include 'tuples'
+
+
+
+
+
+
